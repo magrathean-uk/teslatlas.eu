@@ -1,0 +1,10 @@
+[Unit]
+Description=Poll for TeslaAtlas deploy releases
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=2min
+Unit=teslatlas-deploy-poll.service
+
+[Install]
+WantedBy=timers.target

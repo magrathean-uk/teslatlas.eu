@@ -1,0 +1,24 @@
+[Unit]
+Description=TeslaAtlas Deploy Poll
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+Environment=SITE_SLUG=teslatlas
+Environment=PROJECT_DIR=/opt/sites/teslatlas
+Environment=LOCK_FILE=/tmp/teslatlas-deploy.lock
+Environment=GITHUB_REPOSITORY=magrathean-uk/teslatlas.eu
+Environment=RELEASE_TAG=deploy-main
+Environment=DEPLOY_SCRIPT=/opt/sites/teslatlas/deploy.sh
+Environment=DEPLOY_STATE_FILE=/opt/sites/teslatlas/runtime/last_release
+EnvironmentFile=-/etc/teslatlas-deploy.env
+ExecStart=/usr/bin/python3 /opt/sites/teslatlas/scripts/poll_release.py
+SyslogIdentifier=teslatlas-deploy
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=full
+ReadWritePaths=/opt/sites/teslatlas /tmp
