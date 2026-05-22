@@ -4,11 +4,676 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index,follow">
-  <title>teslatlas.eu</title>
+  <meta name="description" content="Teslatlas syncs TeslaMate data locally for 3D route replay, battery health predictions, charge diagnostics, parked drain detection, and offline analysis.">
+  <title>Teslatlas - TeslaMate analytics, kept local</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S22ZH5M24J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'granted',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-S22ZH5M24J', { anonymize_ip: true });
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f4f8ff;
+      --ink: #07101f;
+      --muted: rgba(7, 16, 31, 0.62);
+      --faint: rgba(7, 16, 31, 0.5);
+      --line: rgba(28, 70, 214, 0.14);
+      --surface: rgba(255, 255, 255, 0.76);
+      --surface-strong: #f8fbff;
+      --primary: #1a26ff;
+      --secondary: #20d7e8;
+      --tertiary: #6bd8ff;
+      --red: #e31937;
+      --shadow: 0 28px 80px rgba(31, 75, 160, 0.14);
+      --max: 72rem;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 18% 5%, rgba(26, 38, 255, 0.17), transparent 30rem),
+        radial-gradient(circle at 80% 12%, rgba(32, 215, 232, 0.15), transparent 28rem),
+        radial-gradient(circle at 50% 78%, rgba(107, 216, 255, 0.13), transparent 34rem),
+        radial-gradient(circle, rgba(28, 70, 214, 0.18) 1px, transparent 1.5px),
+        var(--page);
+      background-size: auto, auto, auto, 22px 22px, auto;
+      color: var(--ink);
+      min-width: 320px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(244, 248, 255, 0.1), rgba(244, 248, 255, 0.88) 64%, #f4f8ff);
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .topbar {
+      align-items: center;
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      margin: 0 auto;
+      max-width: var(--max);
+      padding: 1.25rem clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    .brand {
+      align-items: center;
+      display: inline-flex;
+      gap: 0.7rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-decoration: none;
+    }
+
+    .brand img {
+      border-radius: 8px;
+      box-shadow: 0 10px 24px rgba(227, 25, 55, 0.2);
+      height: 2.25rem;
+      width: 2.25rem;
+    }
+
+    .nav {
+      align-items: center;
+      display: flex;
+      gap: clamp(0.8rem, 2.5vw, 1.55rem);
+      font-size: 0.88rem;
+      font-weight: 650;
+      color: rgba(7, 16, 31, 0.58);
+    }
+
+    .nav a {
+      text-decoration: none;
+    }
+
+    .nav a:focus-visible,
+    .nav a:hover {
+      color: var(--primary);
+      outline: none;
+    }
+
+    .hero {
+      margin: 0 auto;
+      max-width: 92rem;
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 4vw, 2.5rem) clamp(4rem, 7vw, 6rem);
+      text-align: center;
+    }
+
+    .hero-logo {
+      border-radius: 8px;
+      box-shadow: 0 32px 80px rgba(25, 44, 145, 0.22), 0 8px 22px rgba(227, 25, 55, 0.2);
+      height: clamp(5rem, 10vw, 7.2rem);
+      width: clamp(5rem, 10vw, 7.2rem);
+    }
+
+    h1 {
+      font-size: clamp(3.1rem, 8vw, 6rem);
+      font-weight: 730;
+      letter-spacing: 0;
+      line-height: 0.98;
+      margin: 2rem auto 0;
+      max-width: 58rem;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--tertiary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.28rem);
+      line-height: 1.75;
+      margin: 1.6rem auto 0;
+      max-width: 46rem;
+    }
+
+    .store-cta {
+      display: inline-flex;
+      margin-top: 2.4rem;
+      transition: transform 180ms ease, filter 180ms ease;
+    }
+
+    .store-cta:hover,
+    .store-cta:focus-visible {
+      filter: drop-shadow(0 12px 18px rgba(7, 16, 31, 0.16));
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    .store-cta img {
+      display: block;
+      height: 3.85rem;
+      width: auto;
+    }
+
+    .hero-panel {
+      background: linear-gradient(135deg, rgba(255,255,255,0.82), rgba(255,255,255,0.52));
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: clamp(3rem, 6vw, 5rem) auto 0;
+      max-width: 56rem;
+      padding: clamp(1rem, 3vw, 1.35rem);
+      text-align: left;
+    }
+
+    .hero-stat {
+      min-width: 0;
+      padding: clamp(1rem, 2.5vw, 1.2rem);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: clamp(1.8rem, 4.5vw, 2.7rem);
+      font-weight: 730;
+      letter-spacing: 0;
+      line-height: 1;
+    }
+
+    .hero-stat span {
+      color: var(--faint);
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      margin-top: 0.8rem;
+    }
+
+    .section {
+      padding: clamp(3.5rem, 7vw, 5.8rem) clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    .section-inner {
+      margin: 0 auto;
+      max-width: var(--max);
+    }
+
+    .section-kicker {
+      color: var(--primary);
+      font-size: 0.7rem;
+      font-weight: 760;
+      letter-spacing: 0.28em;
+      margin: 0 0 1rem;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(2.35rem, 5vw, 3.5rem);
+      font-weight: 730;
+      letter-spacing: 0;
+      line-height: 0.98;
+      margin: 0;
+      max-width: 50rem;
+    }
+
+    .section-copy {
+      color: rgba(7, 16, 31, 0.58);
+      font-size: clamp(1rem, 1.8vw, 1.13rem);
+      line-height: 1.72;
+      margin: 1.25rem 0 0;
+      max-width: 49rem;
+    }
+
+    .feature-grid,
+    .architecture-grid {
+      display: grid;
+      gap: 2.1rem 3.5rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: clamp(2.6rem, 5vw, 3.6rem);
+    }
+
+    .feature,
+    .tech {
+      align-items: flex-start;
+      display: flex;
+      gap: 1rem;
+      min-width: 0;
+    }
+
+    .icon-box {
+      align-items: center;
+      background: rgba(26, 38, 255, 0.1);
+      border-radius: 8px;
+      color: var(--primary);
+      display: flex;
+      flex: 0 0 auto;
+      height: 2.5rem;
+      justify-content: center;
+      margin-top: 0.2rem;
+      width: 2.5rem;
+    }
+
+    .icon-box.secondary {
+      background: rgba(32, 215, 232, 0.13);
+      color: #078695;
+    }
+
+    .icon-box.tertiary {
+      background: rgba(107, 216, 255, 0.16);
+      color: #1478a9;
+    }
+
+    .icon-box svg {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+
+    h3 {
+      font-size: 1.24rem;
+      letter-spacing: 0;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .feature p,
+    .tech p {
+      color: rgba(7, 16, 31, 0.56);
+      font-size: 0.98rem;
+      line-height: 1.7;
+      margin: 0.65rem 0 0;
+    }
+
+    .privacy-band {
+      border-bottom: 1px solid rgba(28, 70, 214, 0.1);
+      border-top: 1px solid rgba(28, 70, 214, 0.1);
+      padding-bottom: clamp(3rem, 7vw, 4.8rem);
+      padding-top: clamp(3rem, 7vw, 4.8rem);
+    }
+
+    .privacy-grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 1.2fr 0.8fr;
+      margin-top: 2.8rem;
+    }
+
+    .privacy-copy {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    .privacy-copy strong {
+      display: block;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      letter-spacing: 0;
+      line-height: 1.12;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-copy p {
+      color: rgba(7, 16, 31, 0.58);
+      line-height: 1.72;
+      margin: 0;
+    }
+
+    .stat-list {
+      display: grid;
+      gap: 1.4rem;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 730;
+      letter-spacing: 0;
+      line-height: 1;
+    }
+
+    .stat span {
+      color: rgba(7, 16, 31, 0.5);
+      display: block;
+      font-size: 1rem;
+      margin-top: 0.7rem;
+    }
+
+    .tech-head {
+      align-items: baseline;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.75rem;
+    }
+
+    .tech-head span {
+      color: rgba(7, 16, 31, 0.45);
+      font-size: 0.92rem;
+      font-weight: 650;
+    }
+
+    .tech-mark {
+      align-items: center;
+      color: var(--primary);
+      display: flex;
+      flex: 0 0 auto;
+      height: 2rem;
+      justify-content: center;
+      margin-top: 0.1rem;
+      width: 2rem;
+    }
+
+    .tech-mark.rust {
+      color: #ce422b;
+    }
+
+    .tech-mark.swift {
+      color: #f05138;
+    }
+
+    .tech-mark.postgres {
+      color: #4169e1;
+    }
+
+    .tech-mark svg {
+      height: 1.75rem;
+      width: 1.75rem;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(28, 70, 214, 0.12);
+      color: rgba(7, 16, 31, 0.55);
+      font-size: 0.92rem;
+      margin: 2rem auto 0;
+      max-width: var(--max);
+      padding: 2rem clamp(1.25rem, 4vw, 2.5rem) 2.5rem;
+    }
+
+    .footer-inner {
+      align-items: center;
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+    }
+
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .legal-links a {
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .legal-links a:hover,
+    .legal-links a:focus-visible {
+      color: var(--primary);
+      outline: none;
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        flex-wrap: wrap;
+      }
+
+      .hero-panel,
+      .feature-grid,
+      .architecture-grid,
+      .privacy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-panel {
+        text-align: center;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .store-cta,
+      .feature,
+      .tech,
+      .privacy-copy,
+      .stat {
+        transition: transform 180ms ease;
+      }
+
+      .feature:hover,
+      .tech:hover,
+      .privacy-copy:hover,
+      .stat:hover {
+        transform: translateY(-2px);
+      }
+    }
+  </style>
 </head>
 <body>
-  <main>
-    <h1>teslatlas.eu</h1>
-  </main>
+  <div class="page">
+    <header class="topbar" aria-label="Teslatlas">
+      <a class="brand" href="#top" aria-label="Teslatlas home">
+        <img src="assets/teslatlas-logo.webp" alt="" width="72" height="72">
+        <span>Teslatlas</span>
+      </a>
+      <nav class="nav" aria-label="Page sections">
+        <a href="#capabilities">Capabilities</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#architecture">Architecture</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img class="hero-logo" src="assets/teslatlas-logo.webp" alt="Teslatlas app icon" width="160" height="160">
+        <h1 id="hero-title">Teslatlas.<br><span class="gradient-text">TeslaMate analytics, kept local.</span></h1>
+        <p class="lead">Teslatlas syncs your TeslaMate data locally via direct PostgreSQL or MyTeslaMate API, powering 3D route replay, battery health predictions, charge diagnostics, parked drain detection, and full offline analysis.</p>
+        <a class="store-cta" href="https://apps.apple.com/gb/app/teslatlas/id6759248159" rel="noopener noreferrer" aria-label="Download Teslatlas on the App Store">
+          <img src="assets/app-store-badge.svg" alt="Download on the App Store" width="120" height="40">
+        </a>
+        <div class="hero-panel" aria-label="Teslatlas highlights">
+          <div class="hero-stat">
+            <strong>PostgreSQL</strong>
+            <span>Connect directly to TeslaMate or through the MyTeslaMate API.</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Local ML</strong>
+            <span>Battery predictions run from your own driving and charging history.</span>
+          </div>
+          <div class="hero-stat">
+            <strong>No telemetry</strong>
+            <span>The app has no analytics, tracking pixels, SDKs, or data passing through Magrathean.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="capabilities" aria-labelledby="capabilities-title">
+        <div class="section-inner">
+          <p class="section-kicker">Capabilities</p>
+          <h2 id="capabilities-title">Everything your TeslaMate data can tell you.</h2>
+          <p class="section-copy">Battery health predictions, charge diagnostics, 3D route replay, parked drain detection, and full offline analysis - all from local data that never leaves the device.</p>
+
+          <div class="feature-grid">
+            <article class="feature">
+              <span class="icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4 5 20"/><path d="M17 4l2 16"/><path d="M12 4v4"/><path d="M12 12v3"/><path d="M12 19v1"/></svg>
+              </span>
+              <div>
+                <h3>3D route replay</h3>
+                <p>Interactive maps with flyover views, multiple rendering modes, and full journey analysis across your drive history.</p>
+              </div>
+            </article>
+            <article class="feature">
+              <span class="icon-box secondary" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 6 13h4l-1 9 9-13h-5l1-7Z"/></svg>
+              </span>
+              <div>
+                <h3>Battery health predictions</h3>
+                <p>Machine learning estimates for battery degradation powered by your local driving and charging history.</p>
+              </div>
+            </article>
+            <article class="feature">
+              <span class="icon-box tertiary" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l2-5 4 10 3-7 2 4h6"/></svg>
+              </span>
+              <div>
+                <h3>Charge diagnostics</h3>
+                <p>Charge doctor findings, cost tracking, efficiency trends, and parked drain detection across your full session history.</p>
+              </div>
+            </article>
+            <article class="feature">
+              <span class="icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8"/><path d="m8.5 13.5 3.5 3.5 3.5-3.5"/></svg>
+              </span>
+              <div>
+                <h3>PostgreSQL or API</h3>
+                <p>Connect directly to TeslaMate PostgreSQL, or use the MyTeslaMate API with bearer, basic, or Cloudflare Access auth.</p>
+              </div>
+            </article>
+            <article class="feature">
+              <span class="icon-box secondary" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6Z"/><path d="M9 4v14"/><path d="M15 6v14"/></svg>
+              </span>
+              <div>
+                <h3>Long-range maps</h3>
+                <p>Rust builds local route and raster artifacts so six-month and one-year views open without asking TeslaMate again.</p>
+              </div>
+            </article>
+            <article class="feature">
+              <span class="icon-box tertiary" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6"/><path d="m9 6 3-3 3 3"/><path d="M5 20a8 8 0 1 1 14-5"/></svg>
+              </span>
+              <div>
+                <h3>Complete offline analysis</h3>
+                <p>All predictions, diagnostics, and visualisations work offline. Data syncs locally via incremental refresh.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section privacy-band" id="privacy" aria-labelledby="privacy-title">
+        <div class="section-inner">
+          <p class="section-kicker">Privacy</p>
+          <h2 id="privacy-title">Read-only access to your TeslaMate stack.</h2>
+          <p class="section-copy">TeslaMate PostgreSQL or MyTeslaMate API stays the source of truth. Teslatlas mirrors the data it needs into local SQLite, keeps browsing fast on device, and does not write back.</p>
+
+          <div class="privacy-grid">
+            <div class="privacy-copy">
+              <strong>We do not collect, store, or share personal data from the app.</strong>
+              <p>Teslatlas connects directly from your device to your own TeslaMate database or to a MyTeslaMate API endpoint that you configure. Vehicle data does not pass through MAGRATHEAN UK LTD. Cached data, computed predictions, preferences, and credentials stay local on your device.</p>
+            </div>
+            <div class="stat-list" aria-label="Privacy facts">
+              <div class="stat">
+                <strong>Read-only</strong>
+                <span>Access path</span>
+              </div>
+              <div class="stat">
+                <strong>Local ML</strong>
+                <span>Predictions on device</span>
+              </div>
+              <div class="stat">
+                <strong>Offline</strong>
+                <span>After sync</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="architecture" aria-labelledby="architecture-title">
+        <div class="section-inner">
+          <p class="section-kicker">Architecture</p>
+          <h2 id="architecture-title">SwiftUI outside. Rust data work underneath.</h2>
+          <p class="section-copy">SwiftUI renders overview, drives, battery, and trip views across Apple platforms. Rust handles sync, SQLite, route optimisation, and generated map artifacts. TeslaMate PostgreSQL stays the source system.</p>
+
+          <div class="architecture-grid">
+            <article class="tech">
+              <span class="tech-mark swift" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 16.8c.1-.4.2-.8.2-1.2 0-4.5-3.5-9.5-8.2-12.3 2 2.7 3 5.3 3.2 7.6-1.7-1.6-6.4-5.1-9.6-7.1 2.3 2.4 5.5 5.5 6.7 7-2.2-1.2-6.2-3.9-9.1-6.5 1.6 2.7 4.1 5.7 6.8 8-1.9 1.2-4.6 1.3-7.3.1 2.5 3.9 6.5 6.1 10.3 6.1 2 0 3.2-.6 4.1-1.2 1.5.9 2.7 2.2 3.5 3.7.5-1.5.4-2.9-.6-4.2Z"/></svg>
+              </span>
+              <div>
+                <div class="tech-head"><h3>Swift</h3><span>iOS and macOS shell</span></div>
+                <p>SwiftUI owns onboarding, connection setup, settings, and the analytics screens that sit on top of the mirrored data set.</p>
+              </div>
+            </article>
+            <article class="tech">
+              <span class="tech-mark rust" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.3 9.9 4l-2.7-.8-.9 2.6-2.6.9.8 2.7L2.8 12l1.7 2.1-.8 2.7 2.6.9.9 2.6 2.7-.8 2.1 1.7 2.1-1.7 2.7.8.9-2.6 2.6-.9-.8-2.7 1.7-2.1-1.7-2.1.8-2.7-2.6-.9-.9-2.6-2.7.8L12 2.3Zm0 4.2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11Zm-2.6 3v5h1.3v-1.8h1.1l1 1.8h1.6l-1.3-2.1c.7-.3 1.1-.8 1.1-1.5 0-1-.8-1.4-2.1-1.4H9.4Zm1.3 1h1.3c.5 0 .8.2.8.6s-.3.7-.8.7h-1.3v-1.3Z"/></svg>
+              </span>
+              <div>
+                <div class="tech-head"><h3>Rust</h3><span>Data core</span></div>
+                <p>Rust handles PostgreSQL sync, local SQLite writes, route-heavy transforms, and the slower map preparation tasks that do not belong on the UI thread.</p>
+              </div>
+            </article>
+            <article class="tech">
+              <span class="tech-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.64-6.36"/><path d="M3 4v5h5"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+              <div>
+                <div class="tech-head"><h3>SQLite</h3><span>Local mirror</span></div>
+                <p>The local mirror keeps everyday browsing, filters, and offline views responsive once the first sync is done.</p>
+              </div>
+            </article>
+            <article class="tech">
+              <span class="tech-mark postgres" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 14.8c.2-1.3.1-2.2-.2-2.7.7-1.1 1.1-2.4 1.1-3.8 0-3.5-2.7-5.6-6.7-5.6S5.3 4.8 5.3 8.3c0 1.4.4 2.7 1.1 3.8-.3.6-.4 1.6-.2 2.8.2 1.1.8 2 1.7 2.3.5.2 1.2.1 1.8-.3v2.2c0 .7.5 1.3 1.2 1.4.7.1 1.5.2 2.2 0 .7-.1 1.2-.7 1.2-1.4v-2.2c.6.4 1.3.5 1.8.3.9-.4 1.5-1.3 1.7-2.4ZM12 4.1c3.2 0 5.2 1.6 5.2 4.2 0 1.1-.3 2.1-.9 3l-.3.5.3.5c.2.4.3 1.2.1 2.2-.1.7-.4 1.2-.8 1.4-.3.1-.8-.1-1.4-.6l-1.4-1.2v4.8c-.5.1-1.1.1-1.6 0v-4.8l-1.4 1.2c-.6.5-1.1.7-1.4.6-.4-.2-.7-.7-.8-1.4-.2-1-.1-1.8.1-2.2l.3-.5-.3-.5c-.6-.9-.9-1.9-.9-3 0-2.6 2-4.2 5.2-4.2Z"/></svg>
+              </span>
+              <div>
+                <div class="tech-head"><h3>PostgreSQL</h3><span>TeslaMate source</span></div>
+                <p>Your TeslaMate PostgreSQL database stays authoritative, with Teslatlas validating connectivity and then reading into a faster local working set.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span>Teslatlas for iOS and macOS.</span>
+        <nav class="legal-links" aria-label="Legal">
+          <a href="https://magrathean.uk/apps/teslatlas/privacy/">Privacy</a>
+          <a href="https://magrathean.uk/apps/teslatlas/terms/">Terms</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
