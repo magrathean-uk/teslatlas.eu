@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -20,7 +21,7 @@ STATE_FILE = Path(os.environ.get("DEPLOY_STATE_FILE", "/opt/sites/teslatlas/runt
 DEPLOY_SCRIPT = os.environ.get("DEPLOY_SCRIPT", "/opt/sites/teslatlas/deploy.sh")
 
 
-def fetch_release() -> dict:
+def fetch_release() -> dict | None:
     headers = {
         "Accept": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
@@ -31,8 +32,13 @@ def fetch_release() -> dict:
         f"https://api.github.com/repos/{GITHUB_REPOSITORY}/releases/tags/{RELEASE_TAG}",
         headers=headers,
     )
-    with urllib.request.urlopen(request, timeout=30) as response:
-        return json.load(response)
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            return json.load(response)
+    except urllib.error.HTTPError as exc:
+        if exc.code == 404:
+            return None
+        raise
 
 
 def read_current_release() -> str:
@@ -47,7 +53,11 @@ def write_current_release(release_id: str) -> None:
 
 
 def main() -> int:
-    manifest = build_deploy_manifest(fetch_release())
+    release = fetch_release()
+    if release is None:
+        print(f"release {RELEASE_TAG} not found for {GITHUB_REPOSITORY}")
+        return 0
+    manifest = build_deploy_manifest(release)
     release_id = manifest.release_id
     if read_current_release() == release_id:
         return 0
