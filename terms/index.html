@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Teslatlas legal information for local TeslaMate analytics.">
   <link rel="canonical" href="https://teslatlas.eu/terms/">
-  <link rel="icon" href="/assets/magrathean-mark.svg">
+  <link rel="icon" href="/assets/teslatlas-logo.webp">
   <title>Teslatlas Terms of Service</title>
   <style>
+
     :root {
       color-scheme: light;
       --bg: #f7f9fc;
@@ -32,85 +33,31 @@
     }
 
     a { color: inherit; }
-
     .page { width: min(100% - 2rem, 44rem); margin: 0 auto; }
-
-    .legal-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 1.25rem 0;
-    }
-
-    .back {
-      display: inline-flex;
-      align-items: center;
-      min-height: 2.5rem;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 0 0.9rem;
-      background: var(--surface);
-      color: var(--ink);
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 10px 24px rgba(31, 46, 76, 0.06);
-    }
-
-    .made-by {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      justify-content: center;
-      color: var(--faint);
-      font-size: 0.82rem;
-      font-weight: 720;
-      text-decoration: none;
-    }
-
+    .legal-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 0; }
+    .back { display: inline-flex; align-items: center; min-height: 2.5rem; border: 1px solid var(--line); border-radius: 8px; padding: 0 0.9rem; background: var(--surface); color: var(--ink); font-size: 0.9rem; font-weight: 700; text-decoration: none; box-shadow: 0 10px 24px rgba(31, 46, 76, 0.06); }
+    .made-by { display: inline-flex; align-items: center; gap: 0.65rem; justify-content: center; color: var(--faint); font-size: 0.82rem; font-weight: 720; text-decoration: none; }
     .made-by img { width: 1.65rem; height: 1.65rem; object-fit: contain; }
-
     main { padding: clamp(2.5rem, 7vw, 5.5rem) 0 5rem; }
-
     .legal-title { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
-
     .app-logo { width: 3.25rem; height: 3.25rem; border-radius: 10px; box-shadow: var(--shadow); object-fit: contain; }
-
+    .app-logo.auditex-logo { background: #fff; border: 1px solid var(--line); padding: 0.42rem; }
     h1, h2, p { margin: 0; }
-
     h1 { font-size: clamp(2.6rem, 8vw, 4.7rem); line-height: 0.98; letter-spacing: 0; font-weight: 760; }
-
     .meta { margin-top: 0.75rem; color: var(--faint); font-size: 0.92rem; }
-
-    .highlight {
-      margin: 2.5rem 0;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
-      box-shadow: var(--shadow);
-      padding: 1.25rem;
-    }
-
+    .highlight { margin: 2.5rem 0; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); box-shadow: var(--shadow); padding: 1.25rem; }
     .highlight p, .legal-section p, .contact p { color: var(--muted); font-size: 1rem; line-height: 1.74; }
-
     .highlight strong { color: var(--ink); }
-
     .legal-section { padding: 1.55rem 0; border-top: 1px solid var(--line); }
-
     .legal-section h2, .contact h2 { margin-bottom: 0.7rem; font-size: 1rem; line-height: 1.3; }
-
     .contact { padding-top: 1.55rem; border-top: 1px solid var(--line); }
-
     .contact a { font-weight: 720; text-underline-offset: 0.2em; }
+    footer { align-items: center; border-top: 1px solid var(--line); color: var(--faint); display: flex; gap: 1.2rem; justify-content: space-between; padding: 1.8rem 0 2rem; }
+    .legal-links { display: inline-flex; gap: 1rem; font-size: 0.82rem; font-weight: 720; }
+    .legal-links a { text-decoration: none; }
+    .legal-links a:hover, .made-by:hover { color: var(--ink); }
+    @media (max-width: 560px) { .legal-top { align-items: flex-start; flex-direction: column-reverse; } .legal-title { align-items: flex-start; flex-direction: column; } .back { width: 100%; justify-content: center; } footer { align-items: flex-start; flex-direction: column; } }
 
-    footer { padding: 0 0 2rem; color: var(--faint); font-size: 0.8rem; text-align: center; }
-
-    @media (max-width: 560px) {
-      .legal-top { align-items: flex-start; flex-direction: column-reverse; }
-      .legal-title { align-items: flex-start; flex-direction: column; }
-      .back { width: 100%; justify-content: center; }
-    }
   </style>
 </head>
 <body>
@@ -150,7 +97,10 @@
       <section class="contact"><h2>Contact</h2><p>Questions? Email <a href="mailto:contact+teslatlas@magrathean.uk">contact+teslatlas@magrathean.uk</a>.</p></section>
     </main>
 
-    <footer><a class="made-by" href="https://magrathean.uk/"><img src="/assets/magrathean-mark.svg" alt=""><span>Made by Magrathean UK</span></a></footer>
+    <footer>
+      <a class="made-by" href="https://magrathean.uk/"><img src="/assets/magrathean-mark.svg" alt=""><span>Made by Magrathean UK</span></a>
+      <nav class="legal-links" aria-label="Legal links"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+    </footer>
   </div>
 </body>
 </html>
