@@ -28,8 +28,10 @@ class SiteTests(unittest.TestCase):
         self.assertRegex(INDEX, r"informational only", re.IGNORECASE)
 
     def test_home_has_app_landing_sections(self) -> None:
-        for section_id in ("features", "how-it-works", "pricing", "faq"):
+        for section_id in ("features", "pricing", "faq"):
             self.assertIn(f'id="{section_id}"', INDEX)
+        self.assertNotIn('id="how-it-works"', INDEX)
+        self.assertNotIn("Connect. Sync. Read.", INDEX)
 
     def test_home_has_real_screenshot_gallery(self) -> None:
         shots = re.findall(r'assets/screens/[^"]+\.(?:png|jpg|jpeg|webp)', INDEX)
