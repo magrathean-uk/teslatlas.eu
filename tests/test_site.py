@@ -36,8 +36,12 @@ class SiteTests(unittest.TestCase):
         self.assertGreaterEqual(len(shots), 4)
 
     def test_screenshot_section_has_stable_visual_bounds(self) -> None:
-        self.assertIn("object-fit: cover;", INDEX)
-        self.assertRegex(INDEX, r"\.screen-card img \{[^}]*height: clamp", re.DOTALL)
+        self.assertRegex(INDEX, r"\.screen-card img \{[^}]*aspect-ratio: 1284 / 2778", re.DOTALL)
+        self.assertRegex(INDEX, r"\.screen-card img \{[^}]*object-fit: contain", re.DOTALL)
+
+    def test_home_clarifies_no_automatic_diagnostics(self) -> None:
+        self.assertIn("automatic crash diagnostics", INDEX)
+        self.assertNotIn("Not by default. The app connects from your device to your configured source.", INDEX)
 
     def test_home_has_no_pill_shaped_ui(self) -> None:
         self.assertNotIn("999px", INDEX)

@@ -269,9 +269,10 @@
 
     .preview.primary img {
       width: 100%;
-      height: clamp(22rem, 44vw, 34rem);
-      object-fit: cover;
-      object-position: center top;
+      height: clamp(24rem, 46vw, 36rem);
+      object-fit: contain;
+      object-position: center;
+      background: #eef3f8;
     }
 
     .preview-stack {
@@ -281,9 +282,10 @@
 
     .preview-stack .preview img {
       width: 100%;
-      height: clamp(10.6rem, 21vw, 16.6rem);
-      object-fit: cover;
-      object-position: center top;
+      height: clamp(11.6rem, 22.4vw, 17.6rem);
+      object-fit: contain;
+      object-position: center;
+      background: #eef3f8;
     }
 
     .section {
@@ -384,9 +386,10 @@
 
     .screen-card img {
       width: 100%;
-      height: clamp(18rem, 27vw, 24rem);
-      object-fit: cover;
-      object-position: center 70%;
+      aspect-ratio: 1284 / 2778;
+      height: auto;
+      object-fit: contain;
+      object-position: center;
       background: #eef3f8;
     }
 
@@ -443,10 +446,11 @@
 
     .device-frame img {
       width: 100%;
-      max-height: 26rem;
-      object-fit: cover;
-      object-position: center 68%;
+      max-height: 30rem;
+      object-fit: contain;
+      object-position: center;
       border-radius: 4px;
+      background: #eef3f8;
     }
 
     .price-card.featured {
@@ -597,10 +601,10 @@
       .screens,
       .footer-grid { grid-template-columns: 1fr; }
       .hero-visual { grid-template-columns: 1fr 0.78fr; gap: 0.55rem; }
-      .preview.primary img { height: min(26rem, 96vw); }
-      .preview-stack .preview img { height: min(12.7rem, 47vw); }
-      .screen-card img { height: min(32rem, 112vw); object-position: center top; }
-      .device-frame img { max-height: 22rem; }
+      .preview.primary img { height: min(31rem, 118vw); }
+      .preview-stack .preview img { height: min(15rem, 57vw); }
+      .screen-card img { height: auto; }
+      .device-frame img { max-height: 30rem; }
     }
   </style>
 </head>
@@ -637,7 +641,7 @@
           </div>
           <div class="facts" aria-label="Product facts">
             <div class="fact"><strong>Read-only</strong><span>No vehicle commands.</span></div>
-            <div class="fact"><strong>Local-first</strong><span>No cloud relay by default.</span></div>
+            <div class="fact"><strong>Local-first</strong><span>No cloud relay.</span></div>
             <div class="fact"><strong>Clear limits</strong><span>Battery data is informational only.</span></div>
           </div>
         </div>
@@ -646,8 +650,8 @@
             <img src="/assets/screens/overview.webp" alt="Teslatlas overview screen" width="1284" height="2778" fetchpriority="high">
           </div>
           <div class="preview-stack">
-            <div class="preview"><img src="/assets/screens/charging.webp" alt="Teslatlas charging screen" width="1284" height="2778"></div>
-            <div class="preview"><img src="/assets/screens/trips.webp" alt="Teslatlas trips screen" width="1284" height="2778"></div>
+            <div class="preview"><img src="/assets/screens/charging.webp" alt="Teslatlas trips screen" width="1284" height="2778"></div>
+            <div class="preview"><img src="/assets/screens/trips.webp" alt="Teslatlas battery screen" width="1284" height="2778"></div>
           </div>
         </div>
       </div>
@@ -673,16 +677,16 @@
             <figcaption>Overview</figcaption>
           </figure>
           <figure class="screen-card">
-            <img src="/assets/screens/battery.webp" alt="Battery screenshot" width="1284" height="2778" decoding="async">
-            <figcaption>Battery</figcaption>
+            <img src="/assets/screens/battery.webp" alt="Drives screenshot" width="1284" height="2778" decoding="async">
+            <figcaption>Drives</figcaption>
           </figure>
           <figure class="screen-card">
-            <img src="/assets/screens/charging.webp" alt="Charging screenshot" width="1284" height="2778" decoding="async">
-            <figcaption>Charging</figcaption>
-          </figure>
-          <figure class="screen-card">
-            <img src="/assets/screens/trips.webp" alt="Trips screenshot" width="1284" height="2778" decoding="async">
+            <img src="/assets/screens/charging.webp" alt="Trips screenshot" width="1284" height="2778" decoding="async">
             <figcaption>Trips</figcaption>
+          </figure>
+          <figure class="screen-card">
+            <img src="/assets/screens/trips.webp" alt="Battery screenshot" width="1284" height="2778" decoding="async">
+            <figcaption>Battery</figcaption>
           </figure>
         </div>
       </div>
@@ -701,7 +705,7 @@
             <article class="step"><span class="step-no">3</span><div><h3>Browse safely</h3><p>No Tesla command surface. No write-back path by default.</p></div></article>
           </div>
           <div class="device-frame">
-            <img src="/assets/screens/charging.webp" alt="Teslatlas charging screen preview" width="1284" height="2778" loading="lazy" decoding="async">
+            <img src="/assets/screens/charging.webp" alt="Teslatlas trips screen preview" width="1284" height="2778" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
@@ -730,7 +734,7 @@
         <div class="faq-list">
           <details class="faq-item"><summary>Is Teslatlas affiliated with Tesla?</summary><p>No. Tesla, TeslaMate, and MyTeslaMate are separate third parties.</p></details>
           <details class="faq-item"><summary>Does it control the car?</summary><p>No. Teslatlas is a viewer, not a vehicle control app.</p></details>
-          <details class="faq-item"><summary>Does Magrathean receive vehicle data?</summary><p>Not by default. The app connects from your device to your configured source.</p></details>
+          <details class="faq-item"><summary>Does Magrathean receive vehicle data or crash diagnostics?</summary><p>No. Teslatlas does not send Magrathean vehicle data, analytics, or automatic crash diagnostics. Send support details only when you choose to.</p></details>
           <details class="faq-item"><summary>Can I rely on battery estimates?</summary><p>No. Treat them as informational only.</p></details>
         </div>
       </div>
