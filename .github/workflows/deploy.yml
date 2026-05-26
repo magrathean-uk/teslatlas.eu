@@ -33,7 +33,7 @@ jobs:
           git push origin "refs/tags/$RELEASE_TAG" --force
 
       - name: Publish rolling release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           target_commitish: ${{ github.sha }}
