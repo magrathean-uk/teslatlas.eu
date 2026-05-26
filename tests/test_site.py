@@ -77,6 +77,7 @@ class SiteTests(unittest.TestCase):
     def test_footer_copyright_logo_matches_app_icon_size(self) -> None:
         self.assertRegex(INDEX, r"\.brand img \{[^}]*width: 2rem;[^}]*height: 2rem;", re.DOTALL)
         self.assertRegex(INDEX, r"\.copyright img \{[^}]*width: 2rem;[^}]*height: 2rem;", re.DOTALL)
+        self.assertNotRegex(INDEX, r"\.copyright \{[^}]*border-top:", re.DOTALL)
         footer = re.search(r"<footer>[\s\S]*?</footer>", INDEX).group(0)
         self.assertNotIn('aria-label="Teslatlas home"', footer)
         self.assertRegex(INDEX, r"\.footer-grid \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\);", re.DOTALL)
@@ -118,6 +119,35 @@ class SiteTests(unittest.TestCase):
             re.search(r'<meta name="description" content="([^"]+)"', PRIVACY).group(1),
             re.search(r'<meta name="description" content="([^"]+)"', TERMS).group(1),
         )
+
+    def test_privacy_keeps_vehicle_data_boundaries(self) -> None:
+        for token in (
+            "Vehicle-data sensitivity",
+            "Vehicle history can reveal precise locations",
+            "Cloudflare Access credentials",
+            "public share files",
+            "unless you deliberately send material to us",
+            "StoreKit and subscription state",
+        ):
+            self.assertIn(token, PRIVACY)
+        self.assertNotIn("We do not collect, store, or share personal data from the App", PRIVACY)
+
+    def test_terms_keep_public_subscription_and_safety_boundaries(self) -> None:
+        self.assertIn("authorised review/test", TERMS)
+        self.assertNotIn("development", TERMS)
+        for token in (
+            "Diagnostic information only",
+            "Read-only TeslaMate posture",
+            "Battery-health predictions",
+            "not a diagnostic report",
+            "does not write back to TeslaMate by default",
+            "does not send Tesla vehicle commands",
+            "Acceptable use",
+            "access a TeslaMate database, MyTeslaMate endpoint, vehicle-history source, Cloudflare proxy, or API endpoint without authorisation",
+            "bypass authentication, security controls, subscription controls, rate limits, or provider terms",
+            "send or attempt to send Tesla commands through the app",
+        ):
+            self.assertIn(token, TERMS)
 
     def test_robots_and_sitemap_exist(self) -> None:
         robots = ROOT / "robots.txt"
