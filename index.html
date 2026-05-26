@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index,follow">
   <meta name="description" content="Teslatlas is a local-first, read-only MyTeslaMate and TeslaMate viewer for iPhone, iPad, and Mac.">
-  <meta name="theme-color" content="#7c3aed">
+  <meta name="theme-color" content="#2563eb">
   <meta name="apple-itunes-app" content="app-id=6759248159">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Teslatlas">
@@ -44,21 +44,23 @@
     :root {
       color-scheme: light;
       --page: #ffffff;
-      --ink: #12101f;
-      --muted: #666174;
-      --soft: #f7f3ff;
-      --soft-2: #faf8ff;
-      --line: #e8ddff;
-      --accent: #7c3aed;
-      --accent-2: #d946ef;
-      --green: #17a46b;
-      --shadow: 0 24px 80px rgba(76, 29, 149, 0.16);
-      --max: 1180px;
+      --ink: #111827;
+      --muted: #5b6472;
+      --quiet: #f6f8fb;
+      --line: #d9e1ec;
+      --line-strong: #bdc8d6;
+      --accent: #2563eb;
+      --accent-dark: #1d4ed8;
+      --green: #0f766e;
+      --max: 1120px;
+      --shadow: 0 18px 42px rgba(15, 23, 42, 0.11);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     * { box-sizing: border-box; }
+
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       min-width: 320px;
@@ -78,8 +80,8 @@
       left: 1rem;
       top: -3rem;
       z-index: 100;
-      padding: 0.7rem 0.9rem;
-      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      border-radius: 4px;
       background: var(--ink);
       color: #fff;
       font-weight: 750;
@@ -87,42 +89,42 @@
     }
 
     .skip-link:focus-visible { top: 1rem; }
-    :focus-visible { outline: 3px solid rgba(124, 58, 237, 0.32); outline-offset: 3px; }
+    :focus-visible { outline: 3px solid rgba(37, 99, 235, 0.26); outline-offset: 3px; }
 
     .nav {
       position: sticky;
       top: 0;
       z-index: 30;
-      border-bottom: 1px solid rgba(124, 58, 237, 0.14);
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
     }
 
     .nav-inner {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      min-height: 4.25rem;
+      gap: 1.2rem;
+      min-height: 4rem;
       max-width: var(--max);
       margin: 0 auto;
-      padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+      padding: 0 1.25rem;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 0.65rem;
-      font-size: 1.1rem;
+      gap: 0.6rem;
+      font-size: 1.08rem;
       font-weight: 820;
       text-decoration: none;
     }
 
     .brand img {
-      width: 2.15rem;
-      height: 2.15rem;
-      border-radius: 8px;
-      box-shadow: 0 10px 24px rgba(76, 29, 149, 0.16);
+      width: 2rem;
+      height: 2rem;
+      border-radius: 6px;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.13);
     }
 
     .brand span span { color: var(--accent); }
@@ -130,66 +132,63 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: clamp(0.9rem, 2.6vw, 1.55rem);
-      color: #565066;
-      font-size: 0.96rem;
+      justify-content: center;
+      gap: clamp(0.8rem, 2.4vw, 1.5rem);
+      color: #465162;
+      font-size: 0.94rem;
       font-weight: 680;
     }
 
     .nav-links a { text-decoration: none; }
     .nav-links a:hover { color: var(--accent); }
 
-    .nav-cta {
+    .nav-cta,
+    .button-secondary {
       display: inline-flex;
       align-items: center;
-      min-height: 2.45rem;
-      padding: 0 0.9rem;
-      border-radius: 8px;
+      justify-content: center;
+      min-height: 2.55rem;
+      padding: 0 0.95rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 760;
+    }
+
+    .nav-cta {
       background: var(--accent);
       color: #fff;
-      text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 760;
-      box-shadow: 0 12px 28px rgba(124, 58, 237, 0.22);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.2);
     }
 
     .hero {
-      position: relative;
-      overflow: hidden;
-      padding: clamp(2.6rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem) clamp(2.5rem, 5vw, 3.6rem);
-      background: linear-gradient(180deg, #f7f2ff 0%, #eefcff 58%, #fff 100%);
+      padding: clamp(1.6rem, 3.8vw, 3rem) 1.25rem clamp(1.4rem, 3vw, 2.2rem);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #f8fbff 0%, #fff 72%);
     }
 
     .hero-inner {
-      position: relative;
-      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(18rem, 0.85fr);
+      gap: clamp(1.5rem, 4vw, 3rem);
+      align-items: center;
       max-width: var(--max);
       margin: 0 auto;
-      display: grid;
-      justify-items: center;
-      gap: 1.35rem;
-      text-align: center;
     }
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      min-height: 2rem;
-      padding: 0 0.75rem;
-      border-radius: 999px;
-      background: #f0e7ff;
-      color: #6d28d9;
+    .eyebrow {
+      margin-bottom: 0.85rem;
+      color: var(--accent-dark);
       font-size: 0.86rem;
-      font-weight: 760;
+      font-weight: 780;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     h1 {
-      width: 100%;
-      max-width: 52rem;
-      font-size: clamp(2.15rem, 6vw, 4.8rem);
-      line-height: 0.96;
-      font-weight: 840;
+      max-width: 44rem;
+      font-size: clamp(2.3rem, 5vw, 4.25rem);
+      line-height: 0.98;
+      font-weight: 850;
       letter-spacing: 0;
       text-wrap: balance;
     }
@@ -197,134 +196,166 @@
     .accent { color: var(--accent); }
 
     .lead {
-      width: 100%;
-      max-width: 42rem;
+      max-width: 38rem;
+      margin-top: 1rem;
       color: var(--muted);
-      font-size: clamp(1.05rem, 2vw, 1.22rem);
-      line-height: 1.65;
+      font-size: clamp(1rem, 1.7vw, 1.17rem);
+      line-height: 1.58;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.9rem;
-      width: 100%;
+      gap: 0.8rem;
+      margin-top: 1.25rem;
     }
 
-    .store-cta img { height: 3.55rem; width: auto; max-width: 100%; }
+    .store-cta img {
+      width: auto;
+      height: 3.3rem;
+      max-width: 100%;
+    }
 
     .button-secondary {
-      display: inline-flex;
-      align-items: center;
-      min-height: 3.55rem;
-      padding: 0 1.15rem;
-      border: 1px solid #ddd3ef;
-      border-radius: 8px;
+      border: 1px solid var(--line-strong);
       background: #fff;
       color: var(--ink);
-      font-weight: 760;
-      text-decoration: none;
     }
 
-    .hero-screen {
-      position: relative;
-      width: min(100%, 20rem);
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.35rem;
+      max-width: 38rem;
+    }
+
+    .fact {
+      min-height: 4.25rem;
+      padding: 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.25;
+    }
+
+    .fact span {
+      display: block;
       margin-top: 0.25rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.35;
+    }
+
+    .hero-visual {
+      display: grid;
+      grid-template-columns: 1fr 0.74fr;
+      gap: 0.75rem;
+      align-items: stretch;
+    }
+
+    .preview {
       overflow: hidden;
-      border-radius: 26px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
       background: #fff;
       box-shadow: var(--shadow);
     }
 
-    .hero-screen img {
+    .preview.primary img {
       width: 100%;
-      height: clamp(15rem, 28vw, 19rem);
+      height: clamp(22rem, 44vw, 34rem);
       object-fit: cover;
       object-position: center top;
-      border-radius: 26px;
     }
 
-    .mini-proof {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.7rem;
+    .preview-stack {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .preview-stack .preview img {
       width: 100%;
-      color: #625a70;
-      font-size: 0.92rem;
-    }
-
-    .mini-proof span {
-      padding: 0.48rem 0.72rem;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.82);
+      height: clamp(10.6rem, 21vw, 16.6rem);
+      object-fit: cover;
+      object-position: center top;
     }
 
     .section {
-      padding: clamp(4rem, 8vw, 6rem) clamp(1.25rem, 4vw, 2.5rem);
-      scroll-margin-top: 0.5rem;
+      padding: clamp(2.2rem, 5vw, 3.8rem) 1.25rem;
+      scroll-margin-top: 4.5rem;
     }
 
-    .section.soft { background: linear-gradient(180deg, #fff, var(--soft-2)); }
+    .section.compact { padding-top: clamp(1.7rem, 4vw, 3rem); }
+    .section.soft { background: var(--quiet); }
     .section-inner { max-width: var(--max); margin: 0 auto; }
-    .center { text-align: center; max-width: 46rem; margin: 0 auto 2.4rem; }
-    .center .pill { margin-bottom: 1rem; }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.74fr) minmax(16rem, 0.52fr);
+      gap: 1.5rem;
+      align-items: end;
+      margin-bottom: 1.4rem;
+    }
 
     h2 {
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      line-height: 1;
+      font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+      line-height: 1.06;
       font-weight: 820;
       letter-spacing: 0;
+      text-wrap: balance;
     }
 
     .section-copy {
-      margin-top: 0.9rem;
       color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.62;
+      font-size: 1rem;
+      line-height: 1.58;
     }
 
     .feature-grid,
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
+      gap: 0.8rem;
     }
 
     .feature-card,
     .price-card,
     .faq-item {
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 4px;
       background: #fff;
-      box-shadow: 0 14px 40px rgba(76, 29, 149, 0.08);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .feature-card,
+    .price-card {
+      padding: 1rem;
     }
 
     .feature-card {
-      padding: 1.3rem;
-      text-align: center;
+      display: grid;
+      gap: 0.45rem;
+      min-height: 8.2rem;
     }
 
-    .icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 3rem;
-      height: 3rem;
-      margin-bottom: 1rem;
-      border-radius: 999px;
-      background: #f0e7ff;
-      color: var(--accent);
-      font-weight: 850;
+    .feature-index {
+      color: var(--accent-dark);
+      font-size: 0.82rem;
+      font-weight: 820;
+      letter-spacing: 0.05em;
     }
 
     .feature-card h3,
     .price-card h3,
     .step h3,
     .faq-item summary {
-      font-size: 1.12rem;
+      font-size: 1.02rem;
       line-height: 1.25;
       font-weight: 790;
     }
@@ -333,231 +364,243 @@
     .price-card p,
     .step p,
     .faq-item p {
-      margin-top: 0.55rem;
       color: var(--muted);
-      line-height: 1.58;
+      line-height: 1.52;
     }
 
     .screens {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: clamp(0.9rem, 2vw, 1.3rem);
-      margin-top: 2.5rem;
+      gap: 0.8rem;
+      margin-top: 1.25rem;
     }
 
     .screen-card {
       overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 4px;
       background: #fff;
-      box-shadow: 0 16px 46px rgba(76, 29, 149, 0.1);
     }
 
     .screen-card img {
       width: 100%;
-      height: clamp(19rem, 29vw, 25rem);
+      height: clamp(18rem, 27vw, 24rem);
       object-fit: cover;
       object-position: center 70%;
-      background: #efe7ff;
+      background: #eef3f8;
     }
 
     .screen-card figcaption {
-      padding: 0.9rem;
+      padding: 0.65rem 0.75rem;
+      border-top: 1px solid var(--line);
       color: var(--muted);
-      font-size: 0.93rem;
-      line-height: 1.45;
+      font-size: 0.9rem;
+      line-height: 1.35;
     }
 
     .how-grid {
       display: grid;
       grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      gap: clamp(2rem, 5vw, 4rem);
+      gap: clamp(1.25rem, 3vw, 2.5rem);
       align-items: center;
-      max-width: 62rem;
-      margin: 0 auto;
     }
 
     .steps {
       display: grid;
-      gap: 1.1rem;
+      gap: 0.75rem;
     }
 
     .step {
       display: grid;
-      grid-template-columns: 2.5rem minmax(0, 1fr);
-      gap: 1rem;
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: 0.8rem;
       align-items: start;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--line);
     }
+
+    .step:last-child { border-bottom: 0; }
 
     .step-no {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 999px;
-      background: #f0e7ff;
-      color: var(--accent);
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      color: var(--accent-dark);
       font-weight: 850;
     }
 
     .device-frame {
-      padding: 0.7rem;
+      padding: 0.65rem;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 4px;
       background: #fff;
       box-shadow: var(--shadow);
     }
 
     .device-frame img {
       width: 100%;
-      max-height: 30rem;
+      max-height: 26rem;
       object-fit: cover;
       object-position: center 68%;
-      border-radius: 8px;
-    }
-
-    .price-card {
-      position: relative;
-      padding: 1.35rem;
+      border-radius: 4px;
     }
 
     .price-card.featured {
-      border-color: rgba(124, 58, 237, 0.36);
-      box-shadow: 0 22px 60px rgba(124, 58, 237, 0.15);
+      border-color: #8fb2ee;
+      box-shadow: 0 15px 34px rgba(37, 99, 235, 0.12);
     }
 
     .price {
-      margin: 0.65rem 0;
-      font-size: 2.4rem;
-      font-weight: 850;
+      margin: 0.5rem 0;
+      font-size: 1.7rem;
+      line-height: 1.1;
+      font-weight: 840;
     }
 
     .price small {
       color: var(--muted);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 650;
     }
 
     .check-list {
       display: grid;
-      gap: 0.55rem;
-      margin: 1.1rem 0 0;
+      gap: 0.35rem;
+      margin: 0.75rem 0 0;
       padding: 0;
       list-style: none;
-      color: #433b52;
+      color: #374151;
     }
 
     .check-list li::before {
       content: "✓";
-      margin-right: 0.45rem;
+      margin-right: 0.4rem;
       color: var(--green);
       font-weight: 900;
     }
 
     .faq-list {
       display: grid;
-      gap: 0.75rem;
+      gap: 0.6rem;
       max-width: 48rem;
+    }
+
+    .faq-item { padding: 0.85rem 0.95rem; }
+    .faq-item summary { cursor: pointer; }
+    .faq-item p { margin-top: 0.45rem; padding-bottom: 0.1rem; }
+
+    .cta {
+      padding: clamp(2rem, 4.5vw, 3.4rem) 1.25rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #0f172a;
+      color: #fff;
+    }
+
+    .cta-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1.4rem;
+      align-items: center;
+      max-width: var(--max);
       margin: 0 auto;
     }
 
-    .faq-item { padding: 0.95rem 1.05rem; }
-    .faq-item summary { cursor: pointer; }
-    .faq-item p { padding-bottom: 0.2rem; }
-
-    .cta {
-      padding: clamp(4rem, 8vw, 6rem) clamp(1.25rem, 4vw, 2.5rem);
-      background: linear-gradient(135deg, #7c3aed, #d946ef);
-      color: #fff;
-      text-align: center;
-    }
-
     .cta p {
-      max-width: 38rem;
-      margin: 0.9rem auto 1.35rem;
-      color: rgba(255, 255, 255, 0.82);
-      line-height: 1.62;
+      max-width: 42rem;
+      margin-top: 0.55rem;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.52;
     }
 
     .legal-note {
-      max-width: 52rem;
-      margin: 1.3rem auto 0;
-      color: rgba(255, 255, 255, 0.78);
-      font-size: 0.88rem;
-      line-height: 1.55;
+      max-width: var(--max);
+      margin: 1rem auto 0;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
 
     footer {
-      padding: 3rem clamp(1.25rem, 4vw, 2.5rem);
+      padding: 2.25rem 1.25rem;
       border-top: 1px solid var(--line);
     }
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.4fr repeat(3, minmax(0, 0.8fr));
-      gap: 2rem;
+      grid-template-columns: 1.5fr repeat(3, minmax(0, 0.8fr));
+      gap: 1.5rem;
       max-width: var(--max);
       margin: 0 auto;
     }
 
-    footer h3 { font-size: 0.98rem; }
+    footer h3 { font-size: 0.96rem; }
     footer p, footer a {
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.55;
       text-decoration: none;
     }
 
     footer ul {
       display: grid;
-      gap: 0.4rem;
-      margin: 0.8rem 0 0;
+      gap: 0.35rem;
+      margin: 0.65rem 0 0;
       padding: 0;
       list-style: none;
     }
 
     .copyright {
       max-width: var(--max);
-      margin: 2rem auto 0;
-      padding-top: 1.2rem;
+      margin: 1.5rem auto 0;
+      padding-top: 1rem;
       border-top: 1px solid var(--line);
       color: var(--muted);
-      font-size: 0.9rem;
-      text-align: center;
+      font-size: 0.88rem;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 880px) {
+      .nav-inner { grid-template-columns: 1fr auto; }
+      .nav-links { grid-column: 1 / -1; grid-row: 2; padding-bottom: 0.85rem; }
+      .hero-inner,
+      .how-grid,
+      .section-heading,
+      .cta-inner { grid-template-columns: 1fr; }
       .feature-grid,
       .pricing-grid,
       .screens,
       .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .how-grid { grid-template-columns: 1fr; }
-      .device-frame { max-width: 28rem; margin: 0 auto; }
+      .hero-visual { max-width: 38rem; }
     }
 
     @media (max-width: 640px) {
-      .nav-inner { align-items: flex-start; flex-direction: column; padding-block: 1rem; }
+      .nav-inner { display: flex; flex-direction: column; align-items: stretch; gap: 0.8rem; padding-block: 0.85rem; }
       .nav-links {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        width: 100%;
-        gap: 0.35rem;
-        font-size: 0.86rem;
+        gap: 0.3rem;
+        font-size: 0.84rem;
         text-align: center;
       }
       .nav-cta { display: none; }
       .hero { padding-inline: 1rem; }
-      h1 { font-size: clamp(2.05rem, 10.5vw, 2.55rem); line-height: 1.02; }
-      .lead { font-size: 1rem; line-height: 1.58; }
+      h1 { font-size: clamp(2rem, 10vw, 2.45rem); line-height: 1.02; }
+      .lead { font-size: 1rem; line-height: 1.5; }
+      .hero-actions a { width: min(100%, 18rem); }
+      .store-cta img { height: 3.05rem; }
+      .facts,
       .feature-grid,
       .pricing-grid,
       .screens,
       .footer-grid { grid-template-columns: 1fr; }
-      .screen-card img { height: min(34rem, 118vw); object-position: center top; }
-      .hero-screen { width: min(100%, 21rem); }
-      .hero-screen img { height: min(25rem, 90vw); }
-      .hero-actions a { width: min(100%, 18rem); justify-content: center; }
-      .store-cta img { height: 3.1rem; }
+      .hero-visual { grid-template-columns: 1fr 0.78fr; gap: 0.55rem; }
+      .preview.primary img { height: min(26rem, 96vw); }
+      .preview-stack .preview img { height: min(12.7rem, 47vw); }
+      .screen-card img { height: min(32rem, 112vw); object-position: center top; }
+      .device-frame img { max-height: 22rem; }
     }
   </style>
 </head>
@@ -582,40 +625,47 @@
   <main id="main">
     <section class="hero">
       <div class="hero-inner">
-        <span class="pill">Version 3.1.1 live</span>
-        <h1>Your <span class="accent">TeslaMate</span> history, made readable.</h1>
-        <p class="lead">Teslatlas is a read-only MyTeslaMate and TeslaMate viewer for iPhone, iPad, and Mac. Sync once, browse locally.</p>
-        <div class="hero-actions">
-          <a class="store-cta" href="https://apps.apple.com/app/id6759248159" rel="noopener noreferrer" aria-label="Download Teslatlas on the App Store">
-            <img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="183" height="61">
-          </a>
-          <a class="button-secondary" href="#features">See features</a>
+        <div>
+          <p class="eyebrow">Version 3.1.1 live</p>
+          <h1>Your <span class="accent">TeslaMate</span> history in a clear app.</h1>
+          <p class="lead">Teslatlas is a read-only MyTeslaMate and TeslaMate viewer for iPhone, iPad, and Mac. Sync once, then browse a local mirror.</p>
+          <div class="hero-actions">
+            <a class="store-cta" href="https://apps.apple.com/app/id6759248159" rel="noopener noreferrer" aria-label="Download Teslatlas on the App Store">
+              <img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="183" height="61">
+            </a>
+            <a class="button-secondary" href="#features">See features</a>
+          </div>
+          <div class="facts" aria-label="Product facts">
+            <div class="fact"><strong>Read-only</strong><span>No vehicle commands.</span></div>
+            <div class="fact"><strong>Local-first</strong><span>No cloud relay by default.</span></div>
+            <div class="fact"><strong>Clear limits</strong><span>Battery data is informational only.</span></div>
+          </div>
         </div>
-        <div class="mini-proof" aria-label="Product facts">
-          <span>No cloud relay</span>
-          <span>No vehicle commands</span>
-          <span>Local mirror</span>
-        </div>
-        <div class="hero-screen">
-          <img src="/assets/screens/overview.webp" alt="Teslatlas overview screen" width="1284" height="2778" fetchpriority="high">
+        <div class="hero-visual" aria-label="Teslatlas app screenshots">
+          <div class="preview primary">
+            <img src="/assets/screens/overview.webp" alt="Teslatlas overview screen" width="1284" height="2778" fetchpriority="high">
+          </div>
+          <div class="preview-stack">
+            <div class="preview"><img src="/assets/screens/charging.webp" alt="Teslatlas charging screen" width="1284" height="2778"></div>
+            <div class="preview"><img src="/assets/screens/trips.webp" alt="Teslatlas trips screen" width="1284" height="2778"></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="features">
+    <section class="section compact" id="features">
       <div class="section-inner">
-        <div class="center">
-          <span class="pill">Features</span>
+        <div class="section-heading">
           <h2>Built for owners who already run TeslaMate.</h2>
-          <p class="section-copy">Short, useful views over source data you control.</p>
+          <p class="section-copy">Focused views over source data you control. No warranty, repair, or degradation promises.</p>
         </div>
         <div class="feature-grid">
-          <article class="feature-card"><span class="icon">1</span><h3>Drive history</h3><p>Routes, trips, and recent activity in clean app screens.</p></article>
-          <article class="feature-card"><span class="icon">2</span><h3>Charging view</h3><p>Sessions, home cost hints, and simple charge context.</p></article>
-          <article class="feature-card"><span class="icon">3</span><h3>Battery labels</h3><p>Estimates stay labelled and informational only.</p></article>
-          <article class="feature-card"><span class="icon">4</span><h3>Local cache</h3><p>Prepared history opens quickly after sync.</p></article>
-          <article class="feature-card"><span class="icon">5</span><h3>MyTeslaMate</h3><p>API setup without opening direct database access.</p></article>
-          <article class="feature-card"><span class="icon">6</span><h3>PostgreSQL</h3><p>Direct read-only TeslaMate mode remains available.</p></article>
+          <article class="feature-card"><span class="feature-index">01</span><h3>Drive history</h3><p>Routes, trips, and recent activity in readable screens.</p></article>
+          <article class="feature-card"><span class="feature-index">02</span><h3>Charging view</h3><p>Sessions, home cost hints, and charge context.</p></article>
+          <article class="feature-card"><span class="feature-index">03</span><h3>Battery labels</h3><p>Estimates stay clearly marked as informational.</p></article>
+          <article class="feature-card"><span class="feature-index">04</span><h3>Local cache</h3><p>Prepared history opens quickly after sync.</p></article>
+          <article class="feature-card"><span class="feature-index">05</span><h3>MyTeslaMate</h3><p>Use API setup without opening direct database access.</p></article>
+          <article class="feature-card"><span class="feature-index">06</span><h3>PostgreSQL</h3><p>Direct read-only TeslaMate mode remains available.</p></article>
         </div>
         <div class="screens" aria-label="Teslatlas screenshots">
           <figure class="screen-card">
@@ -640,14 +690,14 @@
 
     <section class="section soft" id="how-it-works">
       <div class="section-inner">
-        <div class="center">
-          <span class="pill">How it works</span>
+        <div class="section-heading">
           <h2>Connect. Sync. Read.</h2>
+          <p class="section-copy">The app reads from your configured source and builds local app storage for browsing.</p>
         </div>
         <div class="how-grid">
           <div class="steps">
             <article class="step"><span class="step-no">1</span><div><h3>Pick source</h3><p>Use MyTeslaMate API or direct TeslaMate PostgreSQL.</p></div></article>
-            <article class="step"><span class="step-no">2</span><div><h3>Build mirror</h3><p>Teslatlas reads history into local app storage.</p></div></article>
+            <article class="step"><span class="step-no">2</span><div><h3>Build mirror</h3><p>Teslatlas imports history into local app storage.</p></div></article>
             <article class="step"><span class="step-no">3</span><div><h3>Browse safely</h3><p>No Tesla command surface. No write-back path by default.</p></div></article>
           </div>
           <div class="device-frame">
@@ -659,8 +709,7 @@
 
     <section class="section" id="pricing">
       <div class="section-inner">
-        <div class="center">
-          <span class="pill">Pricing</span>
+        <div class="section-heading">
           <h2>One App Store subscription.</h2>
           <p class="section-copy">Apple shows current price, trial, renewal, and cancellation terms.</p>
         </div>
@@ -674,9 +723,9 @@
 
     <section class="section soft" id="faq">
       <div class="section-inner">
-        <div class="center">
-          <span class="pill">FAQ</span>
+        <div class="section-heading">
           <h2>Short answers.</h2>
+          <p class="section-copy">The important limits are simple.</p>
         </div>
         <div class="faq-list">
           <details class="faq-item"><summary>Is Teslatlas affiliated with Tesla?</summary><p>No. Tesla, TeslaMate, and MyTeslaMate are separate third parties.</p></details>
@@ -688,12 +737,15 @@
     </section>
 
     <section class="cta">
-      <span class="pill">Download</span>
-      <h2>Make TeslaMate easier to read.</h2>
-      <p>Install Teslatlas from the App Store and connect your own source.</p>
-      <a class="store-cta" href="https://apps.apple.com/app/id6759248159" rel="noopener noreferrer" aria-label="Download Teslatlas on the App Store">
-        <img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="183" height="61">
-      </a>
+      <div class="cta-inner">
+        <div>
+          <h2>Make TeslaMate easier to read.</h2>
+          <p>Install Teslatlas from the App Store and connect your own source.</p>
+        </div>
+        <a class="store-cta" href="https://apps.apple.com/app/id6759248159" rel="noopener noreferrer" aria-label="Download Teslatlas on the App Store">
+          <img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="183" height="61">
+        </a>
+      </div>
       <p class="legal-note">Teslatlas is not affiliated with, endorsed by, or sponsored by Tesla, TeslaMate, or MyTeslaMate. Battery, charging, efficiency, and degradation outputs are informational only.</p>
     </section>
   </main>

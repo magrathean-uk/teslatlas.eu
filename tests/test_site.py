@@ -39,6 +39,12 @@ class SiteTests(unittest.TestCase):
         self.assertIn("object-fit: cover;", INDEX)
         self.assertRegex(INDEX, r"\.screen-card img \{[^}]*height: clamp", re.DOTALL)
 
+    def test_home_has_no_pill_shaped_ui(self) -> None:
+        self.assertNotIn("999px", INDEX)
+        self.assertNotIn('class="pill"', INDEX)
+        self.assertNotIn("999px", PRIVACY)
+        self.assertNotIn("999px", TERMS)
+
     def test_home_has_no_template_references(self) -> None:
         for forbidden in ("AppNest", "pawantech12", "Modern Life", "Lorem"):
             self.assertNotIn(forbidden, INDEX)
