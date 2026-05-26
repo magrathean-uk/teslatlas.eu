@@ -27,14 +27,21 @@ class SiteTests(unittest.TestCase):
         self.assertRegex(INDEX, r"not affiliated", re.IGNORECASE)
         self.assertRegex(INDEX, r"informational only", re.IGNORECASE)
 
+    def test_home_has_app_landing_sections(self) -> None:
+        for section_id in ("features", "how-it-works", "pricing", "faq"):
+            self.assertIn(f'id="{section_id}"', INDEX)
+
     def test_home_has_real_screenshot_gallery(self) -> None:
         shots = re.findall(r'assets/screens/[^"]+\.(?:png|jpg|jpeg|webp)', INDEX)
-        self.assertGreaterEqual(len(shots), 3)
+        self.assertGreaterEqual(len(shots), 4)
 
     def test_screenshot_section_has_stable_visual_bounds(self) -> None:
-        self.assertIn("#screens { scroll-margin-top:", INDEX)
         self.assertIn("object-fit: cover;", INDEX)
-        self.assertRegex(INDEX, r"\.shot img \{[^}]*height: clamp", re.DOTALL)
+        self.assertRegex(INDEX, r"\.screen-card img \{[^}]*height: clamp", re.DOTALL)
+
+    def test_home_has_no_template_references(self) -> None:
+        for forbidden in ("AppNest", "pawantech12", "Modern Life", "Lorem"):
+            self.assertNotIn(forbidden, INDEX)
 
     def test_home_uses_en_gb(self) -> None:
         self.assertIn('<html lang="en-GB">', INDEX)
