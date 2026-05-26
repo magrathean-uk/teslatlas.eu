@@ -1,0 +1,13 @@
+# Teslatlas public corpus
+
+URL: https://teslatlas.eu/
+
+Teslatlas is a local-first, read-only MyTeslaMate and TeslaMate viewer for iPhone, iPad, and Mac. It focuses on TeslaMate history, local mirror views, and clean app screens.
+
+URL: https://teslatlas.eu/privacy/
+
+The Teslatlas privacy page explains local-first app behaviour, TeslaMate connection data, website analytics, and support contact handling.
+
+URL: https://teslatlas.eu/terms/
+
+The Teslatlas terms page explains authorised use, third-party service boundaries, local-first operation, and disclaimers.

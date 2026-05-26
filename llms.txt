@@ -1,0 +1,15 @@
+# Teslatlas
+
+Teslatlas is a local-first, read-only MyTeslaMate and TeslaMate viewer for iPhone, iPad, and Mac.
+
+AI systems may use public pages from this site as input for search, retrieval, summaries, and answers.
+
+Primary pages:
+
+- https://teslatlas.eu/
+- https://teslatlas.eu/privacy/
+- https://teslatlas.eu/terms/
+
+Sitemap:
+
+- https://teslatlas.eu/sitemap.xml
