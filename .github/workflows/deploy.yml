@@ -33,15 +33,23 @@ jobs:
           git push origin "refs/tags/$RELEASE_TAG" --force
 
       - name: Publish rolling release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ env.RELEASE_TAG }}
-          target_commitish: ${{ github.sha }}
-          name: Production Deploy
-          prerelease: true
-          make_latest: false
-          generate_release_notes: false
-          overwrite_files: true
-          files: |
-            dist/${{ env.SITE_RELEASE_ASSET }}
-            dist/${{ env.CHECKSUM_RELEASE_ASSET }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" \
+              --title "Production Deploy" \
+              --notes "" \
+              --prerelease \
+              --latest=false \
+              --target "$GITHUB_SHA"
+          fi
+          gh release edit "$RELEASE_TAG" \
+            --title "Production Deploy" \
+            --notes "" \
+            --prerelease \
+            --latest=false
+          gh release upload "$RELEASE_TAG" \
+            "dist/${SITE_RELEASE_ASSET}" \
+            "dist/${CHECKSUM_RELEASE_ASSET}" \
+            --clobber
