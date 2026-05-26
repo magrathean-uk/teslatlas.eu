@@ -54,7 +54,7 @@
       --green: #0f766e;
       --max: 1120px;
       --shadow: 0 18px 42px rgba(15, 23, 42, 0.11);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
     }
 
     * { box-sizing: border-box; }
@@ -102,7 +102,7 @@
 
     .nav-inner {
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto 1fr;
       align-items: center;
       gap: 1.2rem;
       min-height: 4rem;
@@ -127,12 +127,10 @@
       box-shadow: 0 10px 22px rgba(15, 23, 42, 0.13);
     }
 
-    .brand span span { color: var(--accent); }
-
     .nav-links {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
       gap: clamp(0.8rem, 2.4vw, 1.5rem);
       color: #465162;
       font-size: 0.94rem;
@@ -141,24 +139,6 @@
 
     .nav-links a { text-decoration: none; }
     .nav-links a:hover { color: var(--accent); }
-
-    .nav-cta,
-    .button-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 2.55rem;
-      padding: 0 0.95rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 760;
-    }
-
-    .nav-cta {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.2);
-    }
 
     .hero {
       padding: clamp(1.6rem, 3.8vw, 3rem) 1.25rem clamp(1.4rem, 3vw, 2.2rem);
@@ -175,15 +155,6 @@
       margin: 0 auto;
     }
 
-    .eyebrow {
-      margin-bottom: 0.85rem;
-      color: var(--accent-dark);
-      font-size: 0.86rem;
-      font-weight: 780;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
     h1 {
       max-width: 44rem;
       font-size: clamp(2.3rem, 5vw, 4.25rem);
@@ -192,8 +163,6 @@
       letter-spacing: 0;
       text-wrap: balance;
     }
-
-    .accent { color: var(--accent); }
 
     .lead {
       max-width: 38rem;
@@ -214,12 +183,6 @@
       width: auto;
       height: 3.3rem;
       max-width: 100%;
-    }
-
-    .button-secondary {
-      border: 1px solid var(--line-strong);
-      background: #fff;
-      color: var(--ink);
     }
 
     .facts {
@@ -253,39 +216,20 @@
     }
 
     .hero-visual {
-      display: grid;
-      grid-template-columns: 1fr 0.74fr;
-      gap: 0.75rem;
-      align-items: stretch;
+      display: block;
+      justify-self: end;
+      width: min(100%, 20rem);
     }
 
     .preview {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #fff;
-      box-shadow: var(--shadow);
+      background: transparent;
     }
 
     .preview.primary img {
       width: 100%;
-      height: clamp(24rem, 46vw, 36rem);
-      object-fit: contain;
-      object-position: center;
-      background: #eef3f8;
-    }
-
-    .preview-stack {
-      display: grid;
-      gap: 0.75rem;
-    }
-
-    .preview-stack .preview img {
-      width: 100%;
-      height: clamp(11.6rem, 22.4vw, 17.6rem);
-      object-fit: contain;
-      object-position: center;
-      background: #eef3f8;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
     }
 
     .section {
@@ -379,26 +323,16 @@
 
     .screen-card {
       overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      background: #fff;
+      border-radius: 20px;
+      background: transparent;
     }
 
     .screen-card img {
       width: 100%;
       aspect-ratio: 1284 / 2778;
       height: auto;
-      object-fit: contain;
-      object-position: center;
-      background: #eef3f8;
-    }
-
-    .screen-card figcaption {
-      padding: 0.65rem 0.75rem;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.35;
+      border-radius: 20px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
     }
 
     .how-grid {
@@ -439,7 +373,7 @@
     .device-frame {
       padding: 0.65rem;
       border: 1px solid var(--line);
-      border-radius: 4px;
+      border-radius: 20px;
       background: #fff;
       box-shadow: var(--shadow);
     }
@@ -449,7 +383,7 @@
       max-height: 30rem;
       object-fit: contain;
       object-position: center;
-      border-radius: 4px;
+      border-radius: 20px;
       background: #eef3f8;
     }
 
@@ -471,22 +405,6 @@
       font-weight: 650;
     }
 
-    .check-list {
-      display: grid;
-      gap: 0.35rem;
-      margin: 0.75rem 0 0;
-      padding: 0;
-      list-style: none;
-      color: #374151;
-    }
-
-    .check-list li::before {
-      content: "✓";
-      margin-right: 0.4rem;
-      color: var(--green);
-      font-weight: 900;
-    }
-
     .faq-list {
       display: grid;
       gap: 0.6rem;
@@ -497,38 +415,6 @@
     .faq-item summary { cursor: pointer; }
     .faq-item p { margin-top: 0.45rem; padding-bottom: 0.1rem; }
 
-    .cta {
-      padding: clamp(2rem, 4.5vw, 3.4rem) 1.25rem;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: #0f172a;
-      color: #fff;
-    }
-
-    .cta-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 1.4rem;
-      align-items: center;
-      max-width: var(--max);
-      margin: 0 auto;
-    }
-
-    .cta p {
-      max-width: 42rem;
-      margin-top: 0.55rem;
-      color: rgba(255, 255, 255, 0.78);
-      line-height: 1.52;
-    }
-
-    .legal-note {
-      max-width: var(--max);
-      margin: 1rem auto 0;
-      color: rgba(255, 255, 255, 0.68);
-      font-size: 0.86rem;
-      line-height: 1.5;
-    }
-
     footer {
       padding: 2.25rem 1.25rem;
       border-top: 1px solid var(--line);
@@ -536,7 +422,7 @@
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.5fr repeat(3, minmax(0, 0.8fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1.5rem;
       max-width: var(--max);
       margin: 0 auto;
@@ -558,6 +444,9 @@
     }
 
     .copyright {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
       max-width: var(--max);
       margin: 1.5rem auto 0;
       padding-top: 1rem;
@@ -566,30 +455,33 @@
       font-size: 0.88rem;
     }
 
+    .copyright img {
+      width: 2rem;
+      height: 2rem;
+    }
+
     @media (max-width: 880px) {
-      .nav-inner { grid-template-columns: 1fr auto; }
-      .nav-links { grid-column: 1 / -1; grid-row: 2; padding-bottom: 0.85rem; }
+      .nav-inner { grid-template-columns: auto 1fr; }
+      .nav-links { justify-content: flex-end; }
       .hero-inner,
       .how-grid,
       .section-heading,
-      .cta-inner { grid-template-columns: 1fr; }
       .feature-grid,
       .pricing-grid,
       .screens,
       .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .hero-visual { max-width: 38rem; }
+      .hero-visual { justify-self: start; max-width: 20rem; }
     }
 
     @media (max-width: 640px) {
       .nav-inner { display: flex; flex-direction: column; align-items: stretch; gap: 0.8rem; padding-block: 0.85rem; }
       .nav-links {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 0.3rem;
         font-size: 0.84rem;
         text-align: center;
       }
-      .nav-cta { display: none; }
       .hero { padding-inline: 1rem; }
       h1 { font-size: clamp(2rem, 10vw, 2.45rem); line-height: 1.02; }
       .lead { font-size: 1rem; line-height: 1.5; }
@@ -600,9 +492,7 @@
       .pricing-grid,
       .screens,
       .footer-grid { grid-template-columns: 1fr; }
-      .hero-visual { grid-template-columns: 1fr 0.78fr; gap: 0.55rem; }
-      .preview.primary img { height: min(31rem, 118vw); }
-      .preview-stack .preview img { height: min(15rem, 57vw); }
+      .hero-visual { max-width: 18rem; }
       .screen-card img { height: auto; }
       .device-frame img { max-height: 30rem; }
     }
@@ -614,14 +504,13 @@
     <div class="nav-inner">
       <a class="brand" href="/" aria-label="Teslatlas home">
         <img src="/assets/teslatlas-logo.webp" alt="">
-        <span>Tesl<span>atlas</span></span>
+        <span>Teslatlas</span>
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <a class="nav-cta" href="https://apps.apple.com/app/id6759248159" rel="noopener noreferrer">Download</a>
     </div>
   </header>
 
@@ -629,14 +518,12 @@
     <section class="hero">
       <div class="hero-inner">
         <div>
-          <p class="eyebrow">Version 3.1.1 live</p>
-          <h1>Your <span class="accent">TeslaMate</span> history in a clear app.</h1>
+          <h1>Your TeslaMate history in a clear app.</h1>
           <p class="lead">Teslatlas is a read-only MyTeslaMate and TeslaMate viewer for iPhone, iPad, and Mac. Sync once, then browse a local mirror.</p>
           <div class="hero-actions">
             <a class="store-cta" href="https://apps.apple.com/app/id6759248159" rel="noopener noreferrer" aria-label="Download Teslatlas on the App Store">
               <img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="183" height="61">
             </a>
-            <a class="button-secondary" href="#features">See features</a>
           </div>
           <div class="facts" aria-label="Product facts">
             <div class="fact"><strong>Read-only</strong><span>No vehicle commands.</span></div>
@@ -644,13 +531,9 @@
             <div class="fact"><strong>Clear limits</strong><span>Battery data is informational only.</span></div>
           </div>
         </div>
-        <div class="hero-visual" aria-label="Teslatlas app screenshots">
+        <div class="hero-visual" aria-label="Teslatlas app screenshot">
           <div class="preview primary">
             <img src="/assets/screens/overview.webp" alt="Teslatlas overview screen" width="1284" height="2778" fetchpriority="high">
-          </div>
-          <div class="preview-stack">
-            <div class="preview"><img src="/assets/screens/charging.webp" alt="Teslatlas trips screen" width="1284" height="2778"></div>
-            <div class="preview"><img src="/assets/screens/trips.webp" alt="Teslatlas battery screen" width="1284" height="2778"></div>
           </div>
         </div>
       </div>
@@ -673,19 +556,15 @@
         <div class="screens" aria-label="Teslatlas screenshots">
           <figure class="screen-card">
             <img src="/assets/screens/overview.webp" alt="Overview screenshot" width="1284" height="2778" decoding="async">
-            <figcaption>Overview</figcaption>
           </figure>
           <figure class="screen-card">
             <img src="/assets/screens/battery.webp" alt="Drives screenshot" width="1284" height="2778" decoding="async">
-            <figcaption>Drives</figcaption>
           </figure>
           <figure class="screen-card">
             <img src="/assets/screens/charging.webp" alt="Trips screenshot" width="1284" height="2778" decoding="async">
-            <figcaption>Trips</figcaption>
           </figure>
           <figure class="screen-card">
             <img src="/assets/screens/trips.webp" alt="Battery screenshot" width="1284" height="2778" decoding="async">
-            <figcaption>Battery</figcaption>
           </figure>
         </div>
       </div>
@@ -695,11 +574,10 @@
       <div class="section-inner">
         <div class="section-heading">
           <h2>One App Store subscription.</h2>
-          <p class="section-copy">Apple shows current price, trial, renewal, and cancellation terms.</p>
         </div>
         <div class="pricing-grid">
           <article class="price-card"><h3>Requires</h3><p class="price">TeslaMate</p><p>Bring your own MyTeslaMate or TeslaMate setup.</p></article>
-          <article class="price-card featured"><h3>Teslatlas</h3><p class="price">Yearly <small>via App Store</small></p><ul class="check-list"><li>iPhone</li><li>iPad</li><li>Mac</li></ul></article>
+          <article class="price-card featured"><h3>Teslatlas</h3><p class="price">7 day trial <small>then $9.99 /year</small></p><p>Available on iPhone, iPad, and Mac.</p></article>
           <article class="price-card"><h3>Trust limits</h3><p class="price">Read-only</p><p>Outputs are informational, not repair or warranty evidence.</p></article>
         </div>
       </div>
@@ -709,7 +587,6 @@
       <div class="section-inner">
         <div class="section-heading">
           <h2>Short answers.</h2>
-          <p class="section-copy">The important limits are simple.</p>
         </div>
         <div class="faq-list">
           <details class="faq-item"><summary>Is Teslatlas affiliated with Tesla?</summary><p>No. Tesla, TeslaMate, and MyTeslaMate are separate third parties.</p></details>
@@ -720,34 +597,15 @@
       </div>
     </section>
 
-    <section class="cta">
-      <div class="cta-inner">
-        <div>
-          <h2>Make TeslaMate easier to read.</h2>
-          <p>Install Teslatlas from the App Store and connect your own source.</p>
-        </div>
-        <a class="store-cta" href="https://apps.apple.com/app/id6759248159" rel="noopener noreferrer" aria-label="Download Teslatlas on the App Store">
-          <img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="183" height="61">
-        </a>
-      </div>
-      <p class="legal-note">Teslatlas is not affiliated with, endorsed by, or sponsored by Tesla, TeslaMate, or MyTeslaMate. Battery, charging, efficiency, and degradation outputs are informational only.</p>
-    </section>
   </main>
 
   <footer>
     <div class="footer-grid">
-      <div>
-        <a class="brand" href="/" aria-label="Teslatlas home">
-          <img src="/assets/teslatlas-logo.webp" alt="">
-          <span>Tesl<span>atlas</span></span>
-        </a>
-        <p>Local-first TeslaMate viewer by Magrathean UK.</p>
-      </div>
       <div><h3>Product</h3><ul><li><a href="#features">Features</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
       <div><h3>Support</h3><ul><li><a href="mailto:contact+teslatlas@magrathean.uk">Email support</a></li><li><a href="https://apps.apple.com/app/id6759248159" rel="noopener noreferrer">App Store</a></li></ul></div>
       <div><h3>Legal</h3><ul><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div>
     </div>
-    <p class="copyright">Copyright 2026 Magrathean UK Ltd. All rights reserved.</p>
+    <p class="copyright"><img src="/assets/magrathean-mark.svg" alt=""> Copyright 2026 Magrathean UK Ltd. All rights reserved.</p>
   </footer>
 </body>
 </html>
