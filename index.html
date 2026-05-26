@@ -281,9 +281,13 @@
       line-height: 1.4;
     }
 
-    .section { padding: clamp(3.4rem, 7vw, 5.5rem) clamp(1.25rem, 4vw, 2.5rem); }
+    .section {
+      padding: clamp(3.4rem, 7vw, 5.5rem) clamp(1.25rem, 4vw, 2.5rem);
+      scroll-margin-top: 5rem;
+    }
     .section.band { background: var(--band); }
     .section-inner { margin: 0 auto; max-width: var(--max); }
+    #screens { scroll-margin-top: 1.5rem; }
 
     .section-intro {
       display: grid;
@@ -315,8 +319,8 @@
     .shots-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1rem;
-      margin-top: 2.1rem;
+      gap: clamp(1rem, 2vw, 1.45rem);
+      margin-top: 2.4rem;
     }
 
     .shot {
@@ -328,6 +332,10 @@
     }
 
     .shot img {
+      width: 100%;
+      height: clamp(18rem, 30vw, 24rem);
+      object-fit: cover;
+      object-position: center 70%;
       border-radius: 8px;
       border: 1px solid rgba(7, 16, 31, 0.08);
       background: #dce7ff;
@@ -469,6 +477,11 @@
 
       .hero-shot {
         width: min(100%, 20rem);
+      }
+
+      .shot img {
+        height: min(36rem, 125vw);
+        object-position: center top;
       }
     }
 

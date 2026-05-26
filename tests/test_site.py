@@ -31,6 +31,11 @@ class SiteTests(unittest.TestCase):
         shots = re.findall(r'assets/screens/[^"]+\.(?:png|jpg|jpeg|webp)', INDEX)
         self.assertGreaterEqual(len(shots), 3)
 
+    def test_screenshot_section_has_stable_visual_bounds(self) -> None:
+        self.assertIn("#screens { scroll-margin-top:", INDEX)
+        self.assertIn("object-fit: cover;", INDEX)
+        self.assertRegex(INDEX, r"\.shot img \{[^}]*height: clamp", re.DOTALL)
+
     def test_home_uses_en_gb(self) -> None:
         self.assertIn('<html lang="en-GB">', INDEX)
 
