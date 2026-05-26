@@ -1,160 +1,650 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index,follow">
-  <meta name="description" content="Teslatlas syncs TeslaMate data locally for 3D route replay, battery health predictions, charge diagnostics, parked drain insights, and offline-first analysis.">
+  <meta name="description" content="Teslatlas is a local-first, read-only MyTeslaMate and TeslaMate viewer for iPhone, iPad, and Mac. Browse drives, charging, battery, maps, and costs from a device-local mirror.">
+  <meta name="theme-color" content="#f4f8ff">
+  <meta name="apple-itunes-app" content="app-id=6759248159">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Teslatlas">
+  <meta property="og:title" content="Teslatlas | MyTeslaMate & TeslaMate viewer">
+  <meta property="og:description" content="Local-first, read-only TeslaMate viewer for iPhone, iPad, and Mac. No cloud relay. No write-back path.">
+  <meta property="og:url" content="https://teslatlas.eu/">
+  <meta property="og:image" content="https://teslatlas.eu/assets/screens/overview.webp">
+  <meta property="og:image:alt" content="Teslatlas overview screen on iPhone">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Teslatlas | MyTeslaMate & TeslaMate viewer">
+  <meta name="twitter:description" content="Read-only, local-first TeslaMate viewer for iPhone, iPad, and Mac.">
+  <meta name="twitter:image" content="https://teslatlas.eu/assets/screens/overview.webp">
   <link rel="canonical" href="https://teslatlas.eu/">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <title>Teslatlas - TeslaMate analytics, kept local</title>
+  <title>Teslatlas | MyTeslaMate & TeslaMate viewer</title>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Teslatlas",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "iOS 26.0, iPadOS 26.0, macOS 26.0",
+      "description": "Local-first, read-only MyTeslaMate and TeslaMate viewer for iPhone, iPad, and Mac.",
+      "url": "https://teslatlas.eu/",
+      "downloadUrl": "https://apps.apple.com/app/id6759248159",
+      "image": "https://teslatlas.eu/assets/screens/overview.webp",
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "GBP",
+        "url": "https://apps.apple.com/app/id6759248159"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": 4.7,
+        "ratingCount": 7
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Magrathean UK Ltd"
+      }
+    }
+  </script>
   <style>
-
     :root {
       color-scheme: light;
       --page: #f4f8ff;
+      --band: #edf3ff;
       --ink: #07101f;
-      --muted: rgba(7, 16, 31, 0.62);
-      --faint: rgba(7, 16, 31, 0.5);
-      --line: rgba(28, 70, 214, 0.14);
-      --surface: rgba(255, 255, 255, 0.76);
+      --muted: rgba(7, 16, 31, 0.68);
+      --soft: rgba(7, 16, 31, 0.56);
+      --line: rgba(22, 66, 208, 0.14);
+      --surface: rgba(255, 255, 255, 0.84);
       --primary: #1a26ff;
       --secondary: #20d7e8;
-      --tertiary: #6bd8ff;
-      --logo-shadow: 0 32px 80px rgba(25, 44, 145, 0.22), 0 8px 22px rgba(227, 25, 55, 0.2);
       --shadow: 0 28px 80px rgba(31, 75, 160, 0.14);
       --max: 72rem;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; background: var(--page); color: var(--ink); min-width: 320px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-    a { color: inherit; }
-    .page { min-height: 100vh; overflow: hidden; }
-    .topbar { align-items: center; display: flex; gap: 1rem; justify-content: space-between; margin: 0 auto; max-width: var(--max); padding: 1.25rem clamp(1.25rem, 4vw, 2.5rem); }
-    .brand { align-items: center; display: inline-flex; gap: 0.7rem; font-size: 0.95rem; font-weight: 700; letter-spacing: 0; text-decoration: none; }
-    .brand img { border-radius: 8px; box-shadow: 0 10px 24px rgba(7, 16, 31, 0.12); height: 2.25rem; object-fit: contain; width: 2.25rem; }
-    .brand img.auditex-logo { border-radius: 0; box-shadow: none; }
-    .nav { align-items: center; display: flex; gap: clamp(0.8rem, 2.5vw, 1.55rem); font-size: 0.88rem; font-weight: 650; color: rgba(7, 16, 31, 0.58); }
-    .nav a { text-decoration: none; }
-    .nav a:focus-visible, .nav a:hover { color: var(--primary); outline: none; }
-    .hero { margin: 0 auto; max-width: 92rem; padding: clamp(3.4rem, 7vw, 6.2rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3.4rem, 6vw, 5rem); text-align: center; }
-    .hero-logo { border-radius: 8px; box-shadow: var(--logo-shadow); height: clamp(5rem, 10vw, 7.2rem); object-fit: contain; width: clamp(5rem, 10vw, 7.2rem); }
-    .hero-logo.auditex-logo { border-radius: 0; box-shadow: none; }
-    h1, h2, h3, p { margin: 0; }
-    h1 { font-size: clamp(3.1rem, 7vw, 5.6rem); font-weight: 730; letter-spacing: 0; line-height: 0.98; margin: 1.8rem auto 0; max-width: 68rem; }
-    .gradient-text { background: linear-gradient(90deg, var(--primary), var(--secondary), var(--tertiary)); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
-    .lead { color: var(--muted); font-size: clamp(1.08rem, 2vw, 1.28rem); line-height: 1.75; margin: 1.45rem auto 0; max-width: 46rem; }
-    .store-cta, .primary-cta { display: inline-flex; margin-top: 2.4rem; }
-    .store-cta:hover, .store-cta:focus-visible, .primary-cta:hover, .primary-cta:focus-visible { filter: drop-shadow(0 12px 18px rgba(7, 16, 31, 0.16)); outline: none; }
-    .store-cta img { display: block; height: 3.85rem; width: auto; }
-    .primary-cta { align-items: center; background: #07101f; border: 1px solid rgba(7, 16, 31, 0.16); border-radius: 8px; color: #fff; font-size: 0.96rem; font-weight: 730; min-height: 3.85rem; padding: 0 1.35rem; text-decoration: none; }
-    .section { padding: clamp(3.5rem, 7vw, 5.8rem) clamp(1.25rem, 4vw, 2.5rem); }
-    .section-inner { margin: 0 auto; max-width: var(--max); }
-    .section-kicker { color: var(--primary); font-size: 0.7rem; font-weight: 760; letter-spacing: 0.28em; margin: 0 0 1rem; text-transform: uppercase; }
-    h2 { font-size: clamp(2.35rem, 5vw, 3.5rem); font-weight: 730; letter-spacing: 0; line-height: 0.98; margin: 0; max-width: 50rem; }
-    .section-copy { color: rgba(7, 16, 31, 0.58); font-size: clamp(1rem, 1.8vw, 1.13rem); line-height: 1.72; margin: 1.25rem 0 0; max-width: 49rem; }
-    .feature-grid, .architecture-grid { display: grid; gap: 2.1rem 3.5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: clamp(2.6rem, 5vw, 3.6rem); }
-    .feature, .tech { min-width: 0; }
-    h3 { font-size: 1.24rem; letter-spacing: 0; line-height: 1.15; margin: 0; }
-    .feature p, .tech p { color: rgba(7, 16, 31, 0.56); font-size: 0.98rem; line-height: 1.7; margin: 0.65rem 0 0; }
-    .privacy-band { border-bottom: 1px solid rgba(7, 16, 31, 0.1); border-top: 1px solid rgba(7, 16, 31, 0.1); padding-bottom: clamp(3rem, 7vw, 4.8rem); padding-top: clamp(3rem, 7vw, 4.8rem); }
-    .privacy-grid { display: grid; gap: 2rem; grid-template-columns: 1.2fr 0.8fr; margin-top: 2.8rem; }
-    .privacy-copy, .privacy-points { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: clamp(1.4rem, 3vw, 2rem); }
-    .privacy-copy p { color: rgba(7, 16, 31, 0.62); font-size: 1rem; line-height: 1.75; }
-    .privacy-copy strong { color: var(--ink); }
-    .privacy-points { display: grid; gap: 1.15rem; }
-    .privacy-points p { color: rgba(7, 16, 31, 0.58); font-size: 0.96rem; line-height: 1.58; }
-    .privacy-points strong { color: var(--ink); display: block; margin-bottom: 0.22rem; }
-    footer { align-items: center; border-top: 1px solid rgba(7, 16, 31, 0.1); color: rgba(7, 16, 31, 0.5); display: flex; gap: 1.2rem; justify-content: space-between; margin: 0 auto; max-width: var(--max); padding: 1.8rem clamp(1.25rem, 4vw, 2.5rem) 2.2rem; }
-    .made-by { align-items: center; display: inline-flex; gap: 0.65rem; font-size: 0.82rem; font-weight: 720; text-decoration: none; }
-    .made-by img { height: 1.65rem; object-fit: contain; width: 1.65rem; }
-    .legal-links { display: flex; gap: 1rem; font-size: 0.82rem; font-weight: 720; }
-    .legal-links a { text-decoration: none; }
-    .legal-links a:hover, .made-by:hover { color: var(--ink); }
-    @media (max-width: 760px) { .topbar { align-items: flex-start; flex-direction: column; } .nav { width: 100%; justify-content: space-between; } .feature-grid, .architecture-grid, .privacy-grid { grid-template-columns: 1fr; } footer { align-items: flex-start; flex-direction: column; } }
-    @media (max-width: 460px) { .hero { padding-top: 2rem; padding-bottom: 2.4rem; } .hero-logo { height: 4.1rem; width: 4.1rem; } h1 { font-size: clamp(2.25rem, 10.8vw, 2.65rem); margin-top: 1.15rem; max-width: 22rem; } .nav { font-size: 0.8rem; gap: 0.7rem; } .lead { font-size: 0.93rem; line-height: 1.48; margin-top: 0.95rem; } .store-cta, .primary-cta { margin-top: 1.1rem; } .store-cta img { height: 2.95rem; } .primary-cta { min-height: 2.95rem; } }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--page);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3, p { margin: 0; }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      z-index: 20;
+      padding: 0.7rem 0.9rem;
+      border-radius: 8px;
+      background: #07101f;
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .skip-link:focus-visible { top: 1rem; }
+
+    :focus-visible {
+      outline: 3px solid rgba(26, 38, 255, 0.28);
+      outline-offset: 3px;
+    }
+
+    .page { min-height: 100vh; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: 0 auto;
+      max-width: var(--max);
+      padding: 1.25rem clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.96rem;
+      font-weight: 760;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 8px;
+      box-shadow: 0 10px 24px rgba(7, 16, 31, 0.12);
+      object-fit: contain;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.8rem, 2.4vw, 1.5rem);
+      color: var(--soft);
+      font-size: 0.88rem;
+      font-weight: 680;
+    }
+
+    .nav a { text-decoration: none; }
+    .nav a:hover, .legal-links a:hover, .made-by:hover { color: var(--primary); }
+
+    .hero {
+      margin: 0 auto;
+      max-width: 92rem;
+      padding: clamp(3.1rem, 7vw, 5.6rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3rem, 5vw, 4.5rem);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(18rem, 0.98fr);
+      align-items: center;
+      gap: clamp(2rem, 5vw, 4rem);
+      margin: 0 auto;
+      max-width: var(--max);
+    }
+
+    .hero-copy {
+      min-width: 0;
+      max-width: 35rem;
+    }
+
+    .hero-logo {
+      width: clamp(4.3rem, 9vw, 5.3rem);
+      height: clamp(4.3rem, 9vw, 5.3rem);
+      border-radius: 12px;
+      box-shadow: 0 24px 56px rgba(25, 44, 145, 0.2), 0 8px 22px rgba(32, 215, 232, 0.16);
+      object-fit: contain;
+    }
+
+    h1 {
+      margin-top: 1.35rem;
+      font-size: clamp(3rem, 7vw, 5.1rem);
+      font-weight: 760;
+      line-height: 0.96;
+      letter-spacing: 0;
+      max-width: 34rem;
+    }
+
+    .gradient-text {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--primary), #467fff 47%, var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      margin-top: 1.35rem;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.22rem);
+      line-height: 1.7;
+      max-width: 33rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.95rem;
+      margin-top: 2rem;
+    }
+
+    .store-cta img {
+      width: auto;
+      height: 3.6rem;
+    }
+
+    .text-cta {
+      display: inline-flex;
+      align-items: center;
+      min-height: 3rem;
+      padding: 0 1rem;
+      border: 1px solid rgba(7, 16, 31, 0.12);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--ink);
+      font-size: 0.92rem;
+      font-weight: 730;
+      text-decoration: none;
+    }
+
+    .hero-note {
+      margin-top: 1rem;
+      color: var(--soft);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      max-width: 34rem;
+    }
+
+    .hero-shot {
+      justify-self: end;
+      width: min(100%, 26rem);
+      padding: 1rem;
+      border: 1px solid rgba(22, 66, 208, 0.12);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(234, 241, 255, 0.92));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-shot img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid rgba(7, 16, 31, 0.08);
+    }
+
+    .release-strip {
+      margin: 0 auto;
+      max-width: var(--max);
+      padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    .release-strip-inner {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      padding: 1.2rem 1.25rem;
+      border: 1px solid rgba(7, 16, 31, 0.08);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 16px 36px rgba(31, 75, 160, 0.08);
+    }
+
+    .release-item span {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 760;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .release-item strong {
+      display: block;
+      margin-top: 0.38rem;
+      font-size: 0.96rem;
+      line-height: 1.4;
+    }
+
+    .section { padding: clamp(3.4rem, 7vw, 5.5rem) clamp(1.25rem, 4vw, 2.5rem); }
+    .section.band { background: var(--band); }
+    .section-inner { margin: 0 auto; max-width: var(--max); }
+
+    .section-intro {
+      display: grid;
+      gap: 0.8rem;
+      max-width: 42rem;
+    }
+
+    .section-label {
+      color: var(--primary);
+      font-size: 0.74rem;
+      font-weight: 760;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(2.2rem, 5vw, 3.35rem);
+      font-weight: 760;
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .section-copy {
+      color: var(--muted);
+      font-size: clamp(1rem, 1.8vw, 1.12rem);
+      line-height: 1.7;
+    }
+
+    .shots-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2.1rem;
+    }
+
+    .shot {
+      padding: 0.95rem;
+      border: 1px solid rgba(7, 16, 31, 0.08);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 18px 36px rgba(31, 75, 160, 0.08);
+    }
+
+    .shot img {
+      border-radius: 8px;
+      border: 1px solid rgba(7, 16, 31, 0.08);
+      background: #dce7ff;
+    }
+
+    .shot figcaption {
+      margin-top: 0.85rem;
+      color: var(--soft);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2.1rem;
+    }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 14px 34px rgba(31, 75, 160, 0.08);
+    }
+
+    .card h3 {
+      font-size: 1.12rem;
+      line-height: 1.2;
+    }
+
+    .card p {
+      margin-top: 0.7rem;
+      color: var(--soft);
+      font-size: 0.96rem;
+      line-height: 1.64;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1rem;
+      margin-top: 2.1rem;
+    }
+
+    .trust-panel {
+      padding: 1.45rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 14px 34px rgba(31, 75, 160, 0.08);
+    }
+
+    .trust-panel p {
+      color: var(--soft);
+      font-size: 0.97rem;
+      line-height: 1.68;
+    }
+
+    .trust-panel p + p { margin-top: 0.8rem; }
+
+    .bullet-list {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .bullet-list div {
+      padding: 0.9rem 0;
+      border-top: 1px solid rgba(7, 16, 31, 0.08);
+    }
+
+    .bullet-list div:first-child { padding-top: 0; border-top: 0; }
+    .bullet-list strong { display: block; margin-bottom: 0.24rem; }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.2rem;
+      margin: 0 auto;
+      max-width: var(--max);
+      padding: 1.8rem clamp(1.25rem, 4vw, 2.5rem) 2.2rem;
+      border-top: 1px solid rgba(7, 16, 31, 0.1);
+      color: rgba(7, 16, 31, 0.56);
+    }
+
+    .made-by {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.82rem;
+      font-weight: 720;
+      text-decoration: none;
+    }
+
+    .made-by img {
+      width: 1.65rem;
+      height: 1.65rem;
+      object-fit: contain;
+    }
+
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.82rem;
+      font-weight: 720;
+    }
+
+    .legal-links a { text-decoration: none; }
+
+    @media (max-width: 980px) {
+      .hero-inner,
+      .trust-grid,
+      .shots-grid,
+      .release-strip-inner,
+      .cards { grid-template-columns: 1fr 1fr; }
+      .hero-shot { justify-self: start; width: min(100%, 22rem); }
+    }
+
+    @media (max-width: 760px) {
+      .topbar,
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-inner,
+      .shots-grid,
+      .cards,
+      .trust-grid,
+      .release-strip-inner { grid-template-columns: 1fr; }
+
+      .nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .hero-shot {
+        width: min(100%, 20rem);
+      }
+    }
+
+    @media (max-width: 460px) {
+      .hero { padding-top: 2rem; }
+      h1 { font-size: clamp(2.2rem, 11vw, 2.7rem); }
+      .lead { font-size: 0.95rem; }
+      .store-cta img { height: 3rem; }
+      .text-cta { width: 100%; justify-content: center; }
+      .nav { font-size: 0.8rem; gap: 0.65rem; }
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <div class="page">
     <header class="topbar" id="top">
       <a class="brand" href="#top" aria-label="Teslatlas home">
-        <img class="" src="/assets/teslatlas-logo.webp" alt="">
+        <img src="/assets/teslatlas-logo.webp" alt="">
         <span>Teslatlas</span>
       </a>
       <nav class="nav" aria-label="Primary navigation">
-        <a href="#capabilities">Capabilities</a>
-        <a href="#privacy">Privacy</a>
-        <a href="#architecture">Architecture</a>
+        <a href="#screens">Screens</a>
+        <a href="#trust">Trust</a>
+        <a href="#release">Release</a>
+        <a href="#legal">Legal</a>
       </nav>
     </header>
 
-    <main>
+    <main id="main">
       <section class="hero" aria-labelledby="hero-title">
-        <img class="hero-logo" src="/assets/teslatlas-logo.webp" alt="Teslatlas icon">
-        <h1 id="hero-title">Teslatlas.<br><span class="gradient-text">TeslaMate analytics,<br>kept local.</span></h1>
-        <p class="lead">Teslatlas syncs your TeslaMate data locally via direct PostgreSQL or MyTeslaMate API, powering 3D route replay, battery health predictions, charge diagnostics, parked drain insights, and offline-first analysis after sync.</p>
-        <a class="store-cta" href="https://apps.apple.com/gb/app/teslatlas/id6759248159" rel="noopener noreferrer" aria-label="Download Teslatlas on the App Store">
-          <img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="120" height="40">
-        </a>
-      </section>
-
-      <section class="section" id="capabilities">
-        <div class="section-inner">
-          <p class="section-kicker">Capabilities</p>
-          <h2>More from your TeslaMate history.</h2>
-          <p class="section-copy">Battery health predictions, charge diagnostics, 3D route replay, parked drain insights where enough local history exists, and prepared maps from local data that never leaves the device.</p>
-          <div class="feature-grid">
-          <article class="feature"><h3>3D route replay</h3><p>Interactive maps with flyover views, multiple rendering modes, and full journey analysis across your drive history.</p></article>
-          <article class="feature"><h3>Battery health predictions</h3><p>Machine learning estimates for battery degradation powered by your local driving and charging history.</p></article>
-          <article class="feature"><h3>Charge diagnostics</h3><p>Charge doctor findings, cost tracking, efficiency trends, and parked drain detection across your full session history.</p></article>
-          <article class="feature"><h3>PostgreSQL or API</h3><p>Connect directly to TeslaMate PostgreSQL, or use the MyTeslaMate API with bearer, basic, or Cloudflare Access auth.</p></article>
-          <article class="feature"><h3>Long-range maps</h3><p>Rust builds local route and raster artifacts so six-month and one-year views open without asking TeslaMate again.</p></article>
-          <article class="feature"><h3>Offline-first analysis</h3><p>Core analytics and prepared maps work from the local mirror after sync. Export backups, support bundles, or public share files with VIN, time, and location redaction.</p></article>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <img class="hero-logo" src="/assets/teslatlas-logo.webp" alt="Teslatlas icon" width="85" height="85">
+            <h1 id="hero-title">Teslatlas.<br><span class="gradient-text">MyTeslaMate & TeslaMate viewer.</span></h1>
+            <p class="lead">Read-only, local-first TeslaMate app for iPhone, iPad, and Mac. Browse drives, charging, battery, route replay, maps, and home charging costs from a device-local mirror built from your own TeslaMate PostgreSQL or MyTeslaMate API data.</p>
+            <div class="hero-actions">
+              <a class="store-cta" href="https://apps.apple.com/app/id6759248159" rel="noopener noreferrer" aria-label="Download Teslatlas on the App Store">
+                <img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="183" height="61">
+              </a>
+              <a class="text-cta" href="/privacy/">Read privacy policy</a>
+            </div>
+            <p class="hero-note">Teslatlas is not affiliated with, endorsed by, or sponsored by Tesla, TeslaMate, or MyTeslaMate. Battery, charging, efficiency, and degradation outputs are informational only and should not be used as repair, warranty, resale, or insurance evidence.</p>
+          </div>
+          <div class="hero-shot">
+            <img src="/assets/screens/overview.webp" alt="Teslatlas overview screenshot on iPhone" width="1284" height="2778" fetchpriority="high">
           </div>
         </div>
       </section>
 
-      <section class="section privacy-band" id="privacy">
+      <section class="release-strip" aria-label="Teslatlas facts">
+        <div class="release-strip-inner">
+          <div class="release-item"><span>Positioning</span><strong>Local-first and read-only by design.</strong></div>
+          <div class="release-item"><span>Sources</span><strong>Direct TeslaMate PostgreSQL or MyTeslaMate API.</strong></div>
+          <div class="release-item"><span>Platforms</span><strong>iPhone, iPad, and Mac.</strong></div>
+          <div class="release-item"><span>Current public release</span><strong>Version 3.1.1, live on May 20, 2026.</strong></div>
+        </div>
+      </section>
+
+      <section class="section" id="screens">
         <div class="section-inner">
-          <p class="section-kicker">Privacy</p>
-          <h2>Read-only access to your TeslaMate stack.</h2>
-          <p class="section-copy">TeslaMate PostgreSQL or MyTeslaMate API stays the source of truth. Sync Health shows source, freshness, row counts, and confidence labels while Teslatlas mirrors into local SQLite without writing back.</p>
-          <div class="privacy-grid">
-            <div class="privacy-copy"><p><strong>We do not collect, store, or share personal data from the app.</strong> Teslatlas connects directly from your device to your own TeslaMate database or to a MyTeslaMate API endpoint that you configure. Vehicle data does not pass through MAGRATHEAN UK LTD. Cached data, computed predictions, preferences, connection metadata, and credentials remain on your device.</p></div>
-            <div class="privacy-points">
-              <p><strong>Local mirror</strong>SQLite cache and map artifacts stay on device.</p>
-              <p><strong>Credentials</strong>Tokens and database secrets stay in Apple Keychain.</p>
-              <p><strong>Exports</strong>Support bundles and public shares can redact VIN, time, and location.</p>
+          <div class="section-intro">
+            <p class="section-label">Screens</p>
+            <h2>Real app screens, not concept art.</h2>
+            <p class="section-copy">These are live App Store screenshots from the current public app line. The product stays focused on viewing and understanding TeslaMate history on-device, not controlling the car.</p>
+          </div>
+          <div class="shots-grid">
+            <figure class="shot">
+              <img src="/assets/screens/overview.webp" alt="Teslatlas overview screen with recent activity, charge, and drive cards" width="1284" height="2778" decoding="async">
+              <figcaption>Overview first, then deeper history. The first screen stays readable before long rebuild work finishes.</figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="/assets/screens/trips.webp" alt="Teslatlas trip and route screen" width="1284" height="2778" decoding="async">
+              <figcaption>Trips and route lines from the local mirror, with long-range map work prepared locally after sync.</figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="/assets/screens/battery.webp" alt="Teslatlas battery screen with battery views and confidence labels" width="1284" height="2778" decoding="async">
+              <figcaption>Battery views keep baseline, measured, and on-device estimates separate instead of pretending they are the same thing.</figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="/assets/screens/charging.webp" alt="Teslatlas charging screen with charging history and detail" width="1284" height="2778" decoding="async">
+              <figcaption>Charging history, costs, and session details stay tied to your own source data and local cache.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section band" id="capabilities">
+        <div class="section-inner">
+          <div class="section-intro">
+            <p class="section-label">What it does</p>
+            <h2>Clearer views over the TeslaMate history you already own.</h2>
+            <p class="section-copy">Public copy stays inside the current product line: local mirror, route replay, one-year map preparation, MyTeslaMate onboarding, and read-only direct TeslaMate mode.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <h3>Overview and drives</h3>
+              <p>Browse drives, trips, route lines, and recent activity from a fast local mirror after the first sync or import pass.</p>
+            </article>
+            <article class="card">
+              <h3>Battery views with labels</h3>
+              <p>Battery screens keep baseline, measured, and on-device estimates separate, with confidence labels when history is weak or incomplete.</p>
+            </article>
+            <article class="card">
+              <h3>Charging and home cost tracking</h3>
+              <p>Review charge sessions, likely causes behind slower charging, and time-of-use home charging costs without sending vehicle data through Magrathean.</p>
+            </article>
+            <article class="card">
+              <h3>MyTeslaMate and local TeslaMate</h3>
+              <p>Choose read-only API setup or direct PostgreSQL setup. Existing direct local TeslaMate mode stays available and unchanged.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="trust">
+        <div class="section-inner">
+          <div class="section-intro">
+            <p class="section-label">Trust</p>
+            <h2>Small claims. Clear boundaries.</h2>
+            <p class="section-copy">This website should make the trust model obvious before anyone taps download.</p>
+          </div>
+          <div class="trust-grid">
+            <div class="trust-panel">
+              <p><strong>No cloud relay.</strong> Teslatlas connects from your device to the source you configure. Vehicle data does not pass through Magrathean by default.</p>
+              <p><strong>No write-back path.</strong> Teslatlas reads from TeslaMate or the configured API source into a local mirror. It is not a Tesla command app and does not write back to TeslaMate by default.</p>
+              <p><strong>No affiliation claim.</strong> Tesla, TeslaMate, and MyTeslaMate remain separate third-party brands or services. Teslatlas exists for descriptive interoperability only.</p>
+            </div>
+            <div class="trust-panel bullet-list">
+              <div>
+                <strong>Local mirror</strong>
+                SQLite cache, prepared map artifacts, and app preferences stay on-device.
+              </div>
+              <div>
+                <strong>Access details</strong>
+                Connection details stay in platform-protected storage on the device.
+              </div>
+              <div>
+                <strong>Output limits</strong>
+                Battery, charging, and efficiency outputs are informational only. Check the vehicle, Tesla, or qualified service records before acting on them.
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section" id="architecture">
+      <section class="section band" id="release">
         <div class="section-inner">
-          <p class="section-kicker">Architecture</p>
-          <h2>SwiftUI outside. Rust data work underneath.</h2>
-          <p class="section-copy">SwiftUI renders overview, drives, battery, and trip views across Apple platforms. Rust handles sync, SQLite, route optimisation, and generated map artifacts. TeslaMate PostgreSQL stays the source system.</p>
-          <div class="architecture-grid">
-          <article class="tech"><h3>Swift</h3><p>SwiftUI owns onboarding, connection setup, settings, and the analytics screens across iPhone, iPad, and Mac Catalyst.</p></article>
-          <article class="tech"><h3>Rust</h3><p>Rust handles PostgreSQL sync, local SQLite writes, route-heavy transforms, and the slower map preparation tasks that do not belong on the UI thread.</p></article>
-          <article class="tech"><h3>SQLite</h3><p>The local mirror keeps everyday browsing, filters, and offline views responsive once the first sync is done.</p></article>
-          <article class="tech"><h3>PostgreSQL</h3><p>Your TeslaMate PostgreSQL database stays authoritative, with Teslatlas validating connectivity and then reading into a faster local working set.</p></article>
+          <div class="section-intro">
+            <p class="section-label">Current release</p>
+            <h2>Current public release: 3.1.1.</h2>
+            <p class="section-copy">As shown on the App Store on May 26, 2026, the current public release is <strong>3.1.1</strong>, dated <strong>May 20, 2026</strong>. Public release copy stays aligned with the current shipping line: clearer MyTeslaMate setup wording, overview-first loading, one-year background history build, and unchanged read-only local TeslaMate mode.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <h3>For people who already run TeslaMate</h3>
+              <p>You need a reachable TeslaMate instance or a MyTeslaMate / TeslaMate API endpoint, plus the source access details you choose during setup.</p>
+            </article>
+            <article class="card">
+              <h3>Subscription shape</h3>
+              <p>Teslatlas is offered through the App Store as a yearly subscription. Current pricing, trial terms, and renewals are controlled by the App Store in your region.</p>
+            </article>
           </div>
         </div>
       </section>
     </main>
 
-    <footer>
-      <a class="made-by" href="https://magrathean.uk/"><img src="/assets/magrathean-mark.svg" alt=""><span>Made by Magrathean UK</span></a>
+    <footer id="legal">
+      <a class="made-by" href="https://magrathean.uk/">
+        <img src="/assets/magrathean-mark.svg" alt="">
+        <span>Made by Magrathean UK</span>
+      </a>
       <nav class="legal-links" aria-label="Legal links">
         <a href="/privacy/">Privacy</a>
         <a href="/terms/">Terms</a>
+        <a href="mailto:contact+teslatlas@magrathean.uk">Support</a>
       </nav>
     </footer>
   </div>
