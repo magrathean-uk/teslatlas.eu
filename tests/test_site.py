@@ -47,9 +47,12 @@ class SiteTests(unittest.TestCase):
     def test_home_has_real_screenshot_gallery(self) -> None:
         shots = re.findall(r'assets/screens/[^"]+\.(?:png|jpg|jpeg|webp)', INDEX)
         self.assertGreaterEqual(len(shots), 4)
+        gallery_match = re.search(r'<div class="screens"[\s\S]*?</div>', INDEX)
+        self.assertIsNotNone(gallery_match)
+        self.assertIn('/assets/screens/overview.webp', gallery_match.group(0).split('<figure class="screen-card">', 2)[1])
 
     def test_screenshot_section_has_stable_visual_bounds(self) -> None:
-        self.assertRegex(INDEX, r"\.screen-card img \{[^}]*aspect-ratio: 1284 / 2778", re.DOTALL)
+        self.assertRegex(INDEX, r"\.screen-card img \{[^}]*aspect-ratio: 1320 / 2868", re.DOTALL)
         self.assertIn("border-radius: 20px", INDEX)
         self.assertRegex(INDEX, r"\.preview \{[^}]*background: transparent;", re.DOTALL)
         self.assertNotRegex(INDEX, r"\.preview \{[^}]*border:", re.DOTALL)
