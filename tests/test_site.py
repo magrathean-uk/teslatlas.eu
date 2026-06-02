@@ -49,7 +49,7 @@ class SiteTests(unittest.TestCase):
         self.assertGreaterEqual(len(shots), 4)
         gallery_match = re.search(r'<div class="screens"[\s\S]*?</div>', INDEX)
         self.assertIsNotNone(gallery_match)
-        self.assertIn('/assets/screens/overview.webp', gallery_match.group(0).split('<figure class="screen-card">', 2)[1])
+        self.assertIn('/assets/screens/overview-20260602.webp', gallery_match.group(0).split('<figure class="screen-card">', 2)[1])
 
     def test_screenshot_section_has_stable_visual_bounds(self) -> None:
         self.assertRegex(INDEX, r"\.screen-card img \{[^}]*aspect-ratio: 1320 / 2868", re.DOTALL)
